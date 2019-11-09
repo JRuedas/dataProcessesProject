@@ -63,7 +63,7 @@ The information used was taken from [Kaggle's website](https://www.kaggle.com/ "
 
 #### 2. How was the data collected or generated?
 
-The data of the data set has been collected from the original files provided by [Madrid Open Data](https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=9e42c176313eb410VgnVCM1000000b205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default) Decide soluciones organization processed them and uploaded to the [kaggle website]([Air Quality in Madrid (2001-2018) dataset](https://www.kaggle.com/decide-soluciones/air-quality-madrid "Air Quality in Madrid (2001-2018))
+The data of the data set has been collected from the original files provided by [Madrid Open Data](https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=9e42c176313eb410VgnVCM1000000b205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default) Decide soluciones organization processed them and uploaded to the [kaggle website](https://www.kaggle.com/decide-soluciones/air-quality-madrid "Air Quality in Madrid (2001-2018))
 
 Originally, Madrid Open Data get the data from 24 automatic stations around Madrid. Those stations, which are set around all the districts of the city, record information about pollution in the area. The data was generated from those stations whose pollution sensors measure air quality in Madrid city. 
 

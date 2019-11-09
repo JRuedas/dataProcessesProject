@@ -16,9 +16,9 @@ This repository is created to hold the code for the project of Data Processes su
 
 Some group members that live in the outskirts of Madrid are thinking about buying an apartment in the city center. In the last decade, some areas from Madrid have been closed to traffic due to the high pollution levels. We can look at it at the following links:
 
-+[El País 25/12/2018](https://elpais.com/ccaa/2018/12/25/madrid/1545733669_183707.html)
-+[El País 15/01/2019](https://elpais.com/ccaa/2019/01/15/madrid/1547552287_304449.html)
-+[ABC 25/02/2019](https://www.abc.es/espana/madrid/abci-ayuntamiento-madrid-activa-escenario-1-protocolo-alta-contaminacion-201902252255_noticia.html)
+* [El País 25/12/2018](https://elpais.com/ccaa/2018/12/25/madrid/1545733669_183707.html)
+* [El País 15/01/2019](https://elpais.com/ccaa/2019/01/15/madrid/1547552287_304449.html)
+* [ABC 25/02/2019](https://www.abc.es/espana/madrid/abci-ayuntamiento-madrid-activa-escenario-1-protocolo-alta-contaminacion-201902252255_noticia.html)
 
 ### 2. Why are you interested in this field/domain?
 
@@ -63,7 +63,7 @@ The information used was taken from [Kaggle's website](https://www.kaggle.com/ "
 
 #### 2. How was the data collected or generated?
 
-The data of the data set has been collected from the original files provided by [Madrid Open Data] (https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=9e42c176313eb410VgnVCM1000000b205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default) Decide soluciones organization processed them and uploaded to the [kaggle website]([Air Quality in Madrid (2001-2018) dataset](https://www.kaggle.com/decide-soluciones/air-quality-madrid "Air Quality in Madrid (2001-2018))
+The data of the data set has been collected from the original files provided by [Madrid Open Data](https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=9e42c176313eb410VgnVCM1000000b205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default) Decide soluciones organization processed them and uploaded to the [kaggle website]([Air Quality in Madrid (2001-2018) dataset](https://www.kaggle.com/decide-soluciones/air-quality-madrid "Air Quality in Madrid (2001-2018))
 
 Originally, Madrid Open Data get the data from 24 automatic stations around Madrid. Those stations, which are set around all the districts of the city, record information about pollution in the area. The data was generated from those stations whose pollution sensors measure air quality in Madrid city. 
 

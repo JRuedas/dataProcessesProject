@@ -43,13 +43,13 @@ These data are from [Madrid's City Council Open Data website](https://datos.madr
 
 1. How much has the use of public transport increased in the most polluted areas?
 2. How much does the rental price vary from a heavily polluted area to another with less pollution?
-3. How much increases the number of people affected by lung diseases when pollution increases from one year to the next?
-4. I prefer the districts of Arganzuela and Retiro.  Which of the two districts has had a lower CO2 index in the last 5 years?
-5. I have allergy problems during the month of Spring. Which district has the lowest pollution levels in the first place?
+3. How much does the number of people affected by lung diseases increase when pollution level's grow from one year to the next?
+4. I prefer the districts of Arganzuela and Retiro. Which of the two districts has had a lower CO2 index in the last 5 years?
+5. I have allergy problems in Spring season. Which is the district that has the lowest pollution levels?
 6. In the last 10 years, which station has had the highest level of accumulated CO2?
 7. In the last 10 years, which station has had the lowest accumulated CO2 level?
-8. Which district has had the most pollution in the last 10 years?
-9. Which district has had the least pollution in the last 10 years?
+8. Which district has had the highest pollution levels in the last 10 years?
+9. Which district has had the lowerst pollution levels in the last 10 years?
 
 ## Finding data
 
@@ -121,14 +121,14 @@ On the one hand, we have Stations.cs with six columns. On the other hand, we hav
 
 According to the information we have we can answer the following questions:
 
-1. I prefer the districts of Arganzuela and Retiro.  Which of the two districts has had a lower CO2 index in the last 5 years?
-2. I have allergy problems during the month of Spring. Which district has the lowest pollution levels in the first place?
+1. I prefer the districts of Arganzuela and Retiro. Which of the two districts has had a lower CO2 index in the last 5 years?
+2. I have allergy problems during Spring. Which district has the lowest pollution levels in the first place?
 3. In the last 10 years, which station has had the highest level of accumulated CO2?
 4. In the last 10 years, which station has had the lowest accumulated CO2 level?
-5. Which district has had the most pollution in the last 10 years?
-6. Which district has had the least pollution in the last 10 years?
+5. Which district has had the highest pollution levels in the last 10 years?
+6. Which district has had the lowest pollution levels in the last 10 years?
 
-The rest of the questions cannot be answered since we do not have enough information on certain topics such as prices or the use of public transport, in case we want to answer them we should conduct a study on these data.
+The rest of the questions cannot be answered because we do not have enough information on certain topics such as prices or the use of public transport. In case we want to answer them we should conduct a study on these matters.
 
 
 ### Dataset 2

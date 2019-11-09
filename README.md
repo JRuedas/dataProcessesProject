@@ -14,13 +14,15 @@ This repository is created to hold the code for the project of Data Processes su
 
 ### 1. Description
 
-Some group members that live in the south of Madrid are thinking about buying an apartment in the Madrid center. In the last decade, some areas from Madrid have been closed to traffic due to the high pollution levels of the city.
+Some group members that live in the outskirts of Madrid are thinking about buying an apartment in the city center. In the last decade, some areas from Madrid have been closed to traffic due to the high pollution levels. We can look at it at the following links:
 
-***TODO (cite some links). --add some additional info about Madrid and its contamination level.***
++[El País 25/12/2018](https://elpais.com/ccaa/2018/12/25/madrid/1545733669_183707.html)
++[El País 15/01/2019](https://elpais.com/ccaa/2019/01/15/madrid/1547552287_304449.html)
++[ABC 25/02/2019](https://www.abc.es/espana/madrid/abci-ayuntamiento-madrid-activa-escenario-1-protocolo-alta-contaminacion-201902252255_noticia.html)
 
 ### 2. Why are you interested in this field/domain?
 
-We are especially concerned about the pollution level in our future neighborhood, and also want to take into account district preferences and issues such as stationary allergies when  determining which area of Madrid would be the most suitable one to buy the apartment.
+We are especially concerned about the pollution level in our future neighborhood, and also want to take into account district preferences and issues such as stationary allergies when determining which area of Madrid would be the most suitable one to buy the apartment.
 
 ### 3. What other examples of data driven project have you found related to this domain?
 
@@ -36,7 +38,6 @@ After reading them all and see how they examined the data, we choose the first o
 
 These data are from [Madrid's City Council Open Data website](https://datos.madrid.es/portal/site/egob "Madrid's City Council Open Data website"), which is a website where the Community of Madrid shares open data. We have chosen data from the air quality where we can see the levels of differents particles per year in some differents stations in Madrid. Not all of the stations collect the same data about particles because some of them are different and do not have the same equipment. These brute data have been processed to work easier with them, and we have found it at [Kaggle's website](https://www.kaggle.com/ "Kaggle's website").
 
-***TODO: Describir dataset escogido.***
 
 ### 4. What data-driven questions do you hope to answer about this domain?
 
@@ -54,7 +55,7 @@ These data are from [Madrid's City Council Open Data website](https://datos.madr
 
 ### Dataset 1
 
-* [Madrid's City Council dataset](https://datos.madrid.es/portal/site/egob/menuitem.9e1e2f6404558187cf35cf3584f1a5a0/?vgnextoid=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default "Madrid Council Dataset")
+* [Air Quality in Madrid (2001-2018) dataset](https://www.kaggle.com/decide-soluciones/air-quality-madrid "Air Quality in Madrid (2001-2018)")
 
 #### 1. Where did you download the data?
 
@@ -62,18 +63,13 @@ The information used was taken from [Kaggle's website](https://www.kaggle.com/ "
 
 #### 2. How was the data collected or generated?
 
-***TODO: Estructurar en 2 preguntas o no.***
+The data of the data set has been collected from the original files provided by [Madrid Open Data] (https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=9e42c176313eb410VgnVCM1000000b205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default) Decide soluciones organization processed them and uploaded to the [kaggle website]([Air Quality in Madrid (2001-2018) dataset](https://www.kaggle.com/decide-soluciones/air-quality-madrid "Air Quality in Madrid (2001-2018))
 
-* Who collected the data?
-* Who or what the data is about?
-
-The data have been collected by some stations in the city of Madrid. The data is about the levels of some particles like SO_2 or CO. Some of them do not have the same equipment and can not collect information about some particles. These datasets collect information per year since 2001 to 2018(May).
-
-***TODO: Falta esto¿?. No entiendo a que se refiere***
+Originally, Madrid Open Data get the data from 24 automatic stations around Madrid. Those stations, which are set around all the districts of the city, record information about pollution in the area. The data was generated from those stations whose pollution sensors measure air quality in Madrid city. 
 
 #### 3. How many observations are in your data?
 
-All data sets include twelve month data except the last one that only has data until  May. According to this, we have the followings rows:
+All data sources include twelve month data except the last one that only has data until  May. According to this, we have the followings rows:
 
 * Stations.csv – 24 rows
 * Madrid2001.csv – 217872 rows
@@ -97,7 +93,7 @@ All data sets include twelve month data except the last one that only has data u
 
 #### 4. How many features are in the data?
 
-In this case, we can differentiate two data sets whose columns represent different data.
+In this case, we can differentiate two data sources whose columns represent different data.
 
 On the one hand, we have Stations.cs with six columns. On the other hand, we have Madrid20xx.csv. Some of these datasets have 14 columns, others 16 and others 17, this is because not all have the data such as Madrid2003.csv does not have the data PM25,  Madrid2011.csv. does not have MXY, OXY and PXY, etc. So we have the following columns in the datasets:
 
@@ -133,3 +129,13 @@ According to the information we have we can answer the following questions:
 6. Which district has had the least pollution in the last 10 years?
 
 The rest of the questions cannot be answered since we do not have enough information on certain topics such as prices or the use of public transport, in case we want to answer them we should conduct a study on these data.
+
+
+### Dataset 2
+
+* [Sociodemographic research in districts and neirbourghoods of Madrid dataset](https://datos.madrid.es/sites/v/index.jsp?vgnextoid=71359583a773a510VgnVCM2000001f4a900aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD)
+
+
+### Dataset 3
+
+* [Public bicycle service stations in Madrid dataset](https://datos.madrid.es/sites/v/index.jsp?vgnextoid=e9b2a4059b4b7410VgnVCM2000000c205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD)

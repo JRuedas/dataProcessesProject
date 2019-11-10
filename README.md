@@ -1,8 +1,6 @@
 # Data Processes Project
 
-<p align="justify">
 This repository is created to hold the code for the project of Data Processes subject
-</p>
 
 ## Authors
 
@@ -16,23 +14,18 @@ This repository is created to hold the code for the project of Data Processes su
 
 > ### 1. Description
 
-<p align="justify">
 Some group members that live in the outskirts of Madrid are thinking about buying an apartment in the city center. In the last decade, some areas from Madrid have been closed to traffic due to the high pollution levels. We can look at it at the following links:
 
 * [El País 25/12/2018](https://elpais.com/ccaa/2018/12/25/madrid/1545733669_183707.html)
 * [El País 15/01/2019](https://elpais.com/ccaa/2019/01/15/madrid/1547552287_304449.html)
 * [ABC 25/02/2019](https://www.abc.es/espana/madrid/abci-ayuntamiento-madrid-activa-escenario-1-protocolo-alta-contaminacion-201902252255_noticia.html)
-</p>
 
 > ### 2. Why are you interested in this field/domain?
 
-<p align="justify">
 We are especially concerned about the pollution level in our future neighborhood, and also want to take into account district preferences and issues such as stationary allergies when determining which area of Madrid would be the most suitable one to buy the apartment.
-</p>
 
 > ### 3. What other examples of data driven project have you found related to this domain?
 
-<p align="justify">
 These are some projects that we found about pollution in Madrid.
 
 * [Madrid's Air Quality Exhaustive Tutorial on Stationarity, Smoothing, and Seasonality](https://www.kaggle.com/nholloway/stationarity-smoothing-and-seasonality "Stationarity, Smoothing, and Seasonality")
@@ -44,7 +37,7 @@ These are some projects that we found about pollution in Madrid.
 After reading them all and see how they examined the data, we choose the first one. This project is very interesting for us, because the study is based on the CO2, according to the district and the stationary.
 
 These data are from [Madrid's City Council Open Data website](https://datos.madrid.es/portal/site/egob "Madrid's City Council Open Data website"), which is a website where the Community of Madrid shares open data. We have chosen data from the air quality where we can see the levels of differents particles per year in some differents stations in Madrid. Not all of the stations collect the same data about particles because some of them are different and do not have the same equipment. These brute data have been processed to work easier with them, and we have found it at [Kaggle's website](https://www.kaggle.com/ "Kaggle's website").
-</p>
+
 
 > ### 4. What data-driven questions do you hope to answer about this domain?
 
@@ -66,23 +59,17 @@ These data are from [Madrid's City Council Open Data website](https://datos.madr
 
 > #### 1. Where did you download the data?
 
-<p align="justify">
 The information used was taken from [Kaggle's website](https://www.kaggle.com/ "Kaggle's website"). On this page, we can find a lot of information and datasets about the air quality in Madrid.
-</p>
 
 > #### 2. How was the data collected or generated?
 
 The data of the data set has been collected from the original files provided by [Madrid Open Data.](https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=9e42c176313eb410VgnVCM1000000b205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default) Decide soluciones organization processed them and uploaded to the [Kaggle's website](https://www.kaggle.com/decide-soluciones/air-quality-madrid)
 
-<p align="justify">
 Originally, Madrid Open Data get the data from 24 automatic stations around Madrid. Those stations, which are set around all the districts of the city, record information about pollution in the area. The data was generated from those stations whose pollution sensors measure air quality in Madrid city.
-</p>
 
 > #### 3. How many observations are in your data?
 
-<p align="justify">
 All csv files include twelve month data except the last one that only has data until  May. According to this, we have the followings rows:
-</p>
 
 | CSV | Observations |
 | --- | ------------ |
@@ -108,11 +95,9 @@ All csv files include twelve month data except the last one that only has data u
 
 > #### 4. How many features are in the data?
 
-<p align="justify">
 In this case, we can differentiate two domains whose columns represent different data.
 
 On the one hand, we have Stations.csv with six columns. On the other hand, we have Madrid20xx.csv. Some of these csv files have 14 columns, others 16 and others 17, this is because not all have the data such as Madrid2003.csv does not have the data PM25,  Madrid2011.csv. does not have MXY, OXY and PXY, etc. So we have the following columns in the csv files:
-</p>
 
 | CSV | Features |
 | --- | -------- |
@@ -138,7 +123,6 @@ On the one hand, we have Stations.csv with six columns. On the other hand, we ha
 
 > #### 5. What questions can be answered using the data in this dataset?
 
-<p align="justify">
 According to the information we have we can answer the following questions:
 
 1. I prefer the districts of Arganzuela and Retiro. Which of the two districts has had a lower CO2 index in the last 5 years?
@@ -149,7 +133,7 @@ According to the information we have we can answer the following questions:
 6. Which district has had the lowest pollution levels in the last 10 years?
 
 The rest of the questions cannot be answered because we do not have enough information on certain topics such as prices or the use of public transport. In case we want to answer them we should conduct a study on these matters.
-</p>
+
 
 ### Dataset 2
 

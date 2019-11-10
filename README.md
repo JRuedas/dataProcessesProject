@@ -6,13 +6,11 @@ This repository is created to hold the code for the project of Data Processes su
 
 ## Authors
 
-<p align="justify">
 * Alejandro Basco Plaza
 * Raul Cruz Benita
 * Jonatan Ruedas Mora
 * Laura Sanchez de Rojas Huerta
 * Miriam Zaragoza Pastor
-</p>
 
 ## Domain of interest
 
@@ -50,7 +48,6 @@ These data are from [Madrid's City Council Open Data website](https://datos.madr
 
 > ### 4. What data-driven questions do you hope to answer about this domain?
 
-<p align="justify">
 1. How much has the use of public transport increased in the most polluted areas?
 2. How much does the rental price vary from a heavily polluted area to another with less pollution?
 3. How much does the number of people affected by lung diseases increase when pollution level's grow from one year to the next?
@@ -60,15 +57,12 @@ These data are from [Madrid's City Council Open Data website](https://datos.madr
 7. In the last 10 years, which station has had the lowest accumulated CO2 level?
 8. Which district has had the highest pollution levels in the last 10 years?
 9. Which district has had the lowerst pollution levels in the last 10 years?
-</p>
 
 ## Finding data
 
 ### Dataset 1
 
-<p align="justify">
 * [Air Quality in Madrid (2001-2018) dataset](https://www.kaggle.com/decide-soluciones/air-quality-madrid "Air Quality in Madrid (2001-2018)")
-</p>
 
 > #### 1. Where did you download the data?
 
@@ -78,9 +72,9 @@ The information used was taken from [Kaggle's website](https://www.kaggle.com/ "
 
 > #### 2. How was the data collected or generated?
 
-<p align="justify">
 The data of the data set has been collected from the original files provided by [Madrid Open Data.](https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=9e42c176313eb410VgnVCM1000000b205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default) Decide soluciones organization processed them and uploaded to the [Kaggle's website](https://www.kaggle.com/decide-soluciones/air-quality-madrid)
 
+<p align="justify">
 Originally, Madrid Open Data get the data from 24 automatic stations around Madrid. Those stations, which are set around all the districts of the city, record information about pollution in the area. The data was generated from those stations whose pollution sensors measure air quality in Madrid city.
 </p>
 
@@ -88,6 +82,7 @@ Originally, Madrid Open Data get the data from 24 automatic stations around Madr
 
 <p align="justify">
 All csv files include twelve month data except the last one that only has data until  May. According to this, we have the followings rows:
+</p>
 
 | CSV | Observations |
 | --- | ------------ |
@@ -110,13 +105,14 @@ All csv files include twelve month data except the last one that only has data u
 | Madrid2016.csv | 209496 rows |
 | Madrid2017.csv | 210120 rows |
 | Madrid2018.csv | 69096 rows |
-</p>
+
 > #### 4. How many features are in the data?
 
 <p align="justify">
 In this case, we can differentiate two domains whose columns represent different data.
 
 On the one hand, we have Stations.csv with six columns. On the other hand, we have Madrid20xx.csv. Some of these csv files have 14 columns, others 16 and others 17, this is because not all have the data such as Madrid2003.csv does not have the data PM25,  Madrid2011.csv. does not have MXY, OXY and PXY, etc. So we have the following columns in the csv files:
+</p>
 
 | CSV | Features |
 | --- | -------- |
@@ -139,7 +135,6 @@ On the one hand, we have Stations.csv with six columns. On the other hand, we ha
 | Madrid2016.csv | 14 columns |
 | Madrid2017.csv | 16 columns |
 | Madrid2018.csv | 16 columns |
-</p>
 
 > #### 5. What questions can be answered using the data in this dataset?
 

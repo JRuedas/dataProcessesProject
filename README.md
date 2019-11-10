@@ -171,6 +171,9 @@ Using the information in the dataset, we can answer the following questions:
 1. On average, which district is the one with the highest amount of road waste (in kg) collected during the months from june to September of 2019?
 2. During the winter of 2017 (From December to March), which waste type was the most collected one on average?
 3. On average, which district is the one that has the highest number of m2 of graffiti removal in the last three years?
+4. Which district has a greater number of dog bag dispensers?
+5.What district has furniture collection?
+
 ### Dataset 3
 
 * [Public bicycle service stations in Madrid dataset](https://datos.madrid.es/sites/v/index.jsp?vgnextoid=e9b2a4059b4b7410VgnVCM2000000c205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD)

@@ -58,6 +58,8 @@ These data are from [Madrid's City Council Open Data website](https://datos.madr
 10. On average, which district is the one with the highest amount of road waste (in kg) collected during the months from june to September of 2019?
 11. During the winter of 2017 (From December to March), which waste type was the most collected one on average?
 12. On average, which district is the one that has the highest number of m2 of graffiti removal in the last three years?
+13. Which district has a greater number of dog bag dispensers?
+14.What district has furniture collection?
 
 ## Finding data
 

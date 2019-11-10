@@ -24,6 +24,9 @@ There have also been important issues with urban garbage collection, leading to 
 
 * [El País 24/12/2018](https://elpais.com/ccaa/2018/12/19/madrid/1545246067_538347.html)
 
+Apart from that, one of the most heated debates revolves around the use of the car in the center of Madrid. Nowadays there are some restrictions when the pollution levels are over a certain values but there also is an on going plan to improve the life quality by avoiding the most polluting cars to enter in the city.
+
+* [El País 30/09/2019](https://elpais.com/ccaa/2019/09/30/madrid/1569824646_593497.html)
 
 > ### 2. Why are you interested in this field/domain?
 
@@ -59,7 +62,9 @@ These data are from [Madrid's City Council Open Data website](https://datos.madr
 11. During the winter of 2017 (From December to March), which waste type was the most collected one on average?
 12. On average, which district is the one that has the highest number of m2 of graffiti removal in the last three years?
 13. Which district has a greater number of dog bag dispensers?
-14.What district has furniture collection?
+14. What district has furniture collection?
+
+__TODO Pensar alguna pregunta del dataset BiciMAD__
 
 ## Finding data
 
@@ -150,12 +155,15 @@ The rest of the questions cannot be answered because we do not have enough infor
 * [Actions in urban cleanness dataset (01/01/2017-30/09/2019)](https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=6d45adbb460dd510VgnVCM2000001f4a900aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default)
 
 > #### 1. Where did you download the data?
-The dataset was found in the [Madrid's city council open data source](https://datos.madrid.es/portal/site/egob/ "Madrid's city council open data source"). In this website, we can find several datasets containing information about different aspects of Madrid. 
+
+The dataset was found in the [Madrid's city council open data source](https://datos.madrid.es/portal/site/egob/ "Madrid's city council open data source"). In this website, we can find several datasets containing information about different aspects of Madrid.
 
 > #### 2. How was the data collected or generated?
+
 The data was collected by the environment and urban planning department of Madrid's city council.
 
 > #### 3. How many observations are in your data?
+
 There are three csv files for each year (2017, 2018 and 2019), measuring the same features related to urban cleanness. The number of observations on each of these datasets is shown in the table below:
 
 | CSV | Observations |
@@ -163,17 +171,43 @@ There are three csv files for each year (2017, 2018 and 2019), measuring the sam
 | actuacionesLimpiezaUrbana2019.csv | 253 rows |
 | actuacionesLimpiezaUrbana2018.csv | 253 rows |
 | actuacionesLimpiezaUrbana2017.csv | 253 rows |
+
 > #### 4. How many features are in the data?
+
 In this dataset, the three csv files that compose the observations for 2017, 2018 and 2019 measure the same 13 features.
+
 > #### 5. What questions can be answered using the data in this dataset?
+
 Using the information in the dataset, we can answer the following questions:
 
 1. On average, which district is the one with the highest amount of road waste (in kg) collected during the months from june to September of 2019?
 2. During the winter of 2017 (From December to March), which waste type was the most collected one on average?
 3. On average, which district is the one that has the highest number of m2 of graffiti removal in the last three years?
 4. Which district has a greater number of dog bag dispensers?
-5.What district has furniture collection?
+5. What district has furniture collection?
 
 ### Dataset 3
 
 * [Public bicycle service stations in Madrid dataset](https://datos.madrid.es/sites/v/index.jsp?vgnextoid=e9b2a4059b4b7410VgnVCM2000000c205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD)
+
+> #### 1. Where did you download the data?
+
+The dataset was found in the [Madrid's city council open data source](https://datos.madrid.es/portal/site/egob/ "Madrid's city council open data source"). In this website, we can find several datasets containing information about different aspects of Madrid.
+
+> #### 2. How was the data collected or generated?
+
+The data was collected by Madrid's city council.
+
+> #### 3. How many observations are in your data?
+
+There is only one CSV in this dataset which includes 216 observations.
+
+> #### 4. How many features are in the data?
+
+The CSV includes 13 features that include several information such as the address or the coordinates.
+
+> #### 5. What questions can be answered using the data in this dataset?
+
+Using the information in the dataset, we can answer the following questions:
+
+__TODO: Pensar preguntas__

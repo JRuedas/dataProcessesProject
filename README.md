@@ -22,7 +22,7 @@ Some group members that live in the outskirts of Madrid are thinking about buyin
 
 There have also been important issues with urban garbage collection, leading to real problems of waste accumulation in the street:
 
-*[El País 24/12/2018](https://elpais.com/ccaa/2018/12/19/madrid/1545246067_538347.html)
+* [El País 24/12/2018](https://elpais.com/ccaa/2018/12/19/madrid/1545246067_538347.html)
 
 
 > ### 2. Why are you interested in this field/domain?

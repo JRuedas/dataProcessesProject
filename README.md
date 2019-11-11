@@ -30,7 +30,7 @@ Apart from that, one of the most heated debates revolves around the use of the c
 
 > ### 2. Why are you interested in this field/domain?
 
-We are especially concerned about the pollution level in our future neighborhood, and also want to take into account district preferences and issues such as urban cleanness and stationary allergies when determining which area of Madrid would be the most suitable one to buy the apartment.
+We are especially concerned about the pollution level in our future neighborhood, and also want to take into account district preferences and issues such as urban cleanness and stationary allergies when determining **which area of Madrid would be the most suitable one to buy an apartment**.
 
 > ### 3. What other examples of data driven project have you found related to this domain?
 

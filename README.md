@@ -63,8 +63,11 @@ These data are from [Madrid's City Council Open Data website](https://datos.madr
 12. On average, which district is the one that has the highest number of m2 of graffiti removal in the last three years?
 13. Which district has a greater number of dog bag dispensers?
 14. What district has furniture collection?
+15. Which district has had the more bicycle available places? 
+16. Are there more bicycles in those districts with less CO2 levels?
+17. On average, which district has the newest bicycle stations? And the older ones?
+18. Which district has had the more bicycle stations?
 
-__TODO Pensar alguna pregunta del dataset BiciMAD__
 
 ## Finding data
 
@@ -210,4 +213,6 @@ The CSV includes 13 features that include several information such as the addres
 
 Using the information in the dataset, we can answer the following questions:
 
-__TODO: Pensar preguntas__
+1. Which district has had the more bicycle available places? 
+2. Which district has the newest bicycle stations? And the older ones?
+3. On average, which district has had the more bicycle stations?

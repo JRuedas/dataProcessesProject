@@ -214,5 +214,5 @@ The CSV includes 13 features that include several information such as the addres
 Using the information in the dataset, we can answer the following questions:
 
 1. Which district has had the more bicycle available places? 
-2. Which district has the newest bicycle stations? And the older ones?
-3. On average, which district has had the more bicycle stations?
+2. On average, which district has the newest bicycle stations? And the older ones?
+3. Which district has had the more bicycle stations?

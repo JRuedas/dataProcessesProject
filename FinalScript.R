@@ -21,15 +21,15 @@ library(mice) #treatment of missing values
 library(missForest) #for prodNA
 library(reshape2)
 # Load CSVs
-madrid_2010 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2010.csv")
-madrid_2011 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2011.csv")
-madrid_2012 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2012.csv")
-madrid_2013 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2013.csv")
-madrid_2014 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2014.csv")
-madrid_2015 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2015.csv")
-madrid_2016 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2016.csv")
-madrid_2017 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2017.csv")
-madrid_2018 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2018.csv")
+madrid_2010 <-read_csv("dataWoNa/madrid_2010.csv")
+madrid_2011 <-read_csv("dataWoNa/madrid_2011.csv")
+madrid_2012 <-read_csv("dataWoNa/madrid_2012.csv")
+madrid_2013 <-read_csv("dataWoNa/madrid_2013.csv")
+madrid_2014 <-read_csv("dataWoNa/madrid_2014.csv")
+madrid_2015 <-read_csv("dataWoNa/madrid_2015.csv")
+madrid_2016 <-read_csv("dataWoNa/madrid_2016.csv")
+madrid_2017 <-read_csv("dataWoNa/madrid_2017.csv")
+madrid_2018 <-read_csv("dataWoNa/madrid_2018.csv")
 
 station <- read.csv("data/Madrid_pollution_level_dataset/stations.csv")
 
@@ -37,6 +37,8 @@ station <- read.csv("data/Madrid_pollution_level_dataset/stations.csv")
 madrid_list <- list(madrid_2010, madrid_2011, madrid_2012, madrid_2013,
                     madrid_2014, madrid_2015, madrid_2016, madrid_2017, madrid_2018)
 madrid_18 <- as.data.frame(rbindlist(madrid_list, fill = T))
+
+madrid_18$only_day <-unlist(lapply(madrid_18$date, day))
 
 remove(madrid_2010)
 remove(madrid_2011)

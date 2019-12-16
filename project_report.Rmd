@@ -83,6 +83,7 @@ Before getting to work with the previously described data, some steps were perfo
 #### Selected Features
 
 In order to perform both the exploratory data analysis and the prediction methods, we will focus on the five gases that harm humans the most when they are present, and that relate the most to pollution:
+
 1. CO
 
 2. O3
@@ -182,11 +183,15 @@ Thus, in order to deal with missing values, the mean of each one of the variable
 
 After the data wrangling step, we are ready to perform the exploratory data analysis.
 
-To start the analysis, the distribution of the variables in our dataset in terms of center, dispersion, and linear relationships descriptive measures, is analysed below.
+To start the analysis, the distribution of the variables in our dataset in terms of center, dispersion and distribution descriptive measures, is analysed below.
+
+After that, the linear relationships of the five variables are analysed, to determine the relations among them, if any.
+
+#### Center, dispersion and distribution measures
 
 The plot below is useful to visualize the center measures of the five selected variables:
 
-```{r boxplots , fig.width=8, fig.height=6, echo=FALSE}
+```{r boxplots , fig.width=8, fig.height=4, echo=FALSE, warning=FALSE}
 library(reshape2)
 library(gridExtra)
 library(ggplot2)
@@ -199,7 +204,27 @@ box_plot <- ggplot(melt_madrid_final_1,aes(x=variable, y=value, color=variable))
 box_plot
 ```
 
-As we can see, there are many outliers or unexpected values for all of the five variables.
+As we can see, the five variables variables spread along wide ranges: there are many outliers or highly unexpected values. The histograms below show a better insight of the shape of the distribution that the variables follow: all of them are highly skewed to the left, so they don't follow a normal distribution.
+
+```{r histograms , fig.width=8, fig.height=4, echo=FALSE, warning=FALSE}
+library(reshape2)
+library(gridExtra)
+library(ggplot2)
+histograms <-ggplot(melt_madrid_final_1,aes(x = value,fill=variable)) + 
+  facet_wrap(~variable, nrow = 1) + 
+  geom_histogram(binwidth=20)+
+  scale_fill_manual(values=c("magenta3","goldenrod3","brown","lightslateblue"))+
+  theme(legend.position="none")+
+  labs(x='ug/m3',y='Pollutants')
+histograms
+```
+
+#### Linear relationships analysis
+
+
+
+### Data insights
+
 
 ## Strength of relationships
 

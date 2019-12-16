@@ -75,7 +75,7 @@ madrid_final1$SO_2[is.na(madrid_final1$SO_2)] <- round(mean(madrid_final1$SO_2, 
 
 #EXPLORATORY DATA ANALYSIS
 
-# 1. Center measures (boxplots)
+# 1. Center and distribution measures (boxplots and histograms)
 melt_madrid_final_1 <- melt(madrid_final1,id.vars='station', measure.vars=c('O_3','PM10','NO_2','SO_2'))
 box_plot <- ggplot(melt_madrid_final_1,aes(x=variable, y=value, color=variable)) +
   geom_boxplot()+ coord_flip()+
@@ -91,7 +91,20 @@ histograms <-ggplot(melt_madrid_final_1,aes(x = value,fill=variable)) +
 
 grid.arrange(box_plot,histograms,nrow=2)
 
-# 2. insights 
+# 2. Linear relationships:
+
+#Covariance and Correlation matrix, omitting date and station columns
+madrid_final1_features = dplyr::select(madrid_final1, 5:9)
+s <- cov(madrid_final1_features)
+r <- cor(madrid_final1_features)
+
+corrplot.mixed(r, lower="number", upper="ellipse")
+
+#determinant of the correlation matrix: if the value is very low, there are high correlations among the variables in our dataset
+det(r)
+
+
+# 3. Data insights 
 # 2.1 see the maximum for each variable in each day for each month each year
 plot_scale_monthly <- function(pol,title,colour) {
   pol <- enquo(pol)

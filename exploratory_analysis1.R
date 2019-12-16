@@ -57,9 +57,9 @@ madrid_final$only_year <-lapply(madrid_final$date, year)
 madrid_final$date<-as.POSIXct(madrid_final$date,format = "%Y-%m-%d %H:%M:%S", tz='CET')
 
 gg_miss_var(madrid_final, show_pct = T) #overall missing values
-selected_features <- select(madrid_final, "date", "only_year", "only_month","station", "CO", "O_3", "PM10", "NO_2", "SO_2")
+selected_features <- dplyr::select(madrid_final, "date", "only_year", "only_month","station", "CO", "O_3", "PM10", "NO_2", "SO_2")
 
-madrid_final1 <- as.data.frame(lapply(selected_features, unlist))
+madrid_final1 <- as.data.frame(lapply(dplyr::selected_features, unlist))
 madrid_final1$only_year <- as.factor(madrid_final1$only_year)
 madrid_final1$only_month <- as.factor(madrid_final1$only_month)
 madrid_final1$station <- as.factor(madrid_final1$station)
@@ -75,7 +75,7 @@ madrid_final1$SO_2[is.na(madrid_final1$SO_2)] <- round(mean(madrid_final1$SO_2, 
 
 #EXPLORATORY DATA ANALYSIS
 
-# 1. Center measures
+# 1. Center measures (boxplots)
 melt_madrid_final_1 <- melt(madrid_final1,id.vars='station', measure.vars=c('O_3','PM10','NO_2','SO_2'))
 box_plot <- ggplot(melt_madrid_final_1,aes(x=variable, y=value, color=variable)) +
   geom_boxplot()+ coord_flip()+
@@ -92,6 +92,7 @@ histograms <-ggplot(melt_madrid_final_1,aes(x = value,fill=variable)) +
 grid.arrange(box_plot,histograms,nrow=2)
 
 # 2. insights 
+# 2.1 see the maximum for each variable in each day for each month each year
 plot_scale_monthly <- function(pol,title,colour) {
   pol <- enquo(pol)
   

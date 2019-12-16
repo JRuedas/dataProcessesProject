@@ -13,23 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Abstract
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
 ## Introduction and related work
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 ## Exploratory data analysis
 
 ### Dataset description
@@ -93,19 +78,30 @@ On the one hand, we have Stations.csv with six columns, which contains informati
 | Madrid2018.csv | 16 columns |
 
 ### Data wrangling
-In order to work with the previously described data, some steps were performed in order to make the data more manageable:
+Before getting to work with the previously described data, some steps were performed in order to make the data more manageable:
 
-* All the yearly datasets were unified in a single one, adding an additional feature to the existing date column that all of the datasets present: the year. Thus, after this transformation, a single dataset contained all the information about Madrid's air pollution in the last 17 years, instead of 17 different datasets (one per year).
+#### Selected Features
 
+In order to perform both the exploratory data analysis and the prediction methods, we will focus on the five gases that harm humans the most when they are present, and that relate the most to pollution:
+1. CO
 
-* In the resulting dataset, there were several missing values: as it has been shown in the table above, some datasets have a different number of columns, so when the previous step was performed and the datasets were unified in a single one, the number of missing values of the resulting dataset was very high. In order to solve this, the rows containing missing values have been removed from the dataset.
+2. O3
 
-### Descriptive statistics analysis
-To start the analysis, we are going to analyse the distribution of the variables in our dataset in terms of center, dispersion, skewness and kurtosis descriptive measures.
+3. SO2
 
-At first, to observe the center measures of each one of the five variables chosen, we have generated five boxplots:
+4. PMH10
 
-```{r, boxplots}
+5. NO2
+
+#### Datasets unification
+
+In order to work with the data, all the yearly datasets were unified in a single one, adding one additional feature to the existing date column that all of the datasets present: the year. Thus, after this transformation, a single dataset contained all the information about Madrid's air pollution in the last 17 years, instead of 17 different datasets (one per year). Two additional columns were added: the _only_month_  and  _only_year_ columns, wihic stand for the month and the year in which the observation was recorded, respectively.
+
+#### Missing values treatment
+
+As we can observe in the plot below, there is a high amount of missing values in the variables that we concern about:
+
+```{r, creation of final dataframe, echo=FALSE,message=FALSE,warning=FALSE, include=FALSE}
 library(ggplot2)
 library(dplyr)
 library(moments)
@@ -163,43 +159,36 @@ madrid_final <- madrid_18[with(madrid_18, order(date)),]
 madrid_final$only_month <-lapply(madrid_final$date, month)
 madrid_final$only_year <-lapply(madrid_final$date, year)
 madrid_final$date<-as.POSIXct(madrid_final$date,format = "%Y-%m-%d %H:%M:%S", tz='CET')
+```
 
-gg_miss_var(madrid_final, show_pct = T) #overall missing values
-selected_features <- select(madrid_final, "date", "only_year", "only_month","station", "CO", "O_3", "PM10", "NO_2", "SO_2")
-
+```{r, creation of final dataframe part 2, echo=FALSE,message=FALSE,warning=FALSE, include=FALSE}
+library(dplyr)
+selected_features <- dplyr::select(madrid_final, "date", "only_year", "only_month","station", "CO", "O_3", "PM10", "NO_2", "SO_2")
 madrid_final1 <- as.data.frame(lapply(selected_features, unlist))
 madrid_final1$only_year <- as.factor(madrid_final1$only_year)
 madrid_final1$only_month <- as.factor(madrid_final1$only_month)
 madrid_final1$station <- as.factor(madrid_final1$station)
-
-gg_miss_var(select(madrid_final1, 4:8), show_pct = T) #missing values just for the 5 variables that we use
-
-# Missing values:
-madrid_final1$CO[is.na(madrid_final1$CO)] <- round(mean(madrid_final1$CO, na.rm = TRUE))
-madrid_final1$O_3[is.na(madrid_final1$O_3)] <- round(mean(madrid_final1$O_3, na.rm = TRUE))
-madrid_final1$PM10[is.na(madrid_final1$PM10)] <- round(mean(madrid_final1$PM10, na.rm = TRUE))
-madrid_final1$NO_2[is.na(madrid_final1$NO_2)] <- round(mean(madrid_final1$NO_2, na.rm = TRUE))
-madrid_final1$SO_2[is.na(madrid_final1$SO_2)] <- round(mean(madrid_final1$SO_2, na.rm = TRUE))
-
-#EXPLORATORY DATA ANALYSIS
-
-# 1. Center measures
-melt_madrid_final_1 <- melt(madrid_final1,id.vars='station', measure.vars=c('O_3','PM10','NO_2','SO_2'))
-box_plot <- ggplot(melt_madrid_final_1,aes(x=variable, y=value, color=variable)) +
-  geom_boxplot()+ coord_flip()+
-  scale_colour_manual(values=c("magenta3","goldenrod3","brown","lightslateblue"))+
-  theme(legend.position="none")+scale_y_continuous(breaks = seq(0, 700, by = 50))+
-  labs(title="Distribution of pollutants",x='Pollutants',y='ug/m3')
-histograms <-ggplot(melt_madrid_final_1,aes(x = value,fill=variable)) + 
-  facet_wrap(~variable, nrow = 1) + 
-  geom_histogram(binwidth=20)+
-  scale_fill_manual(values=c("magenta3","goldenrod3","brown","lightslateblue"))+
-  theme(legend.position="none")+
-  labs(x='ug/m3',y='Pollutants')
-
-grid.arrange(box_plot,histograms,nrow=2)
 ```
-### PCA analysis
+
+```{r plot missing values for selected variables, fig.width=8, fig.height=6, echo=FALSE}
+library(naniar)
+library(dplyr)
+gg_miss_var(dplyr::select(madrid_final1, 4:8), show_pct = T)
+```
+
+Thus, in order to deal with missing values, the mean of each one of the variables for each year, month and station is computed, so that all the missing values for each one of the columns in that same year, month and station are imputed with the corresponding mean.
+
+### Descriptive statistics analysis
+
+After the data wrangling step, we are ready to perform the exploratory data analysis.
+
+To start the analysis, the distribution of the variables in our dataset in terms of center, dispersion, and linear relationships descriptive measures, is analysed below.
+
+The plot below is useful to visualize the center measures of the five selected variables:
+
+
+
+As we can see, there are many outliers or unexpected values for all of the five variables.
 
 ## Strength of relationships
 

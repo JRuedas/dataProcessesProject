@@ -57,14 +57,15 @@ madrid_final$only_year <-lapply(madrid_final$date, year)
 madrid_final$date<-as.POSIXct(madrid_final$date,format = "%Y-%m-%d %H:%M:%S", tz='CET')
 
 gg_miss_var(madrid_final, show_pct = T) #overall missing values
-selected_features <- select(madrid_final, "date", "only_year", "only_month","station", "CO", "O_3", "PM10", "NO_2", "SO_2")
+selected_features <- madrid_final %>%  
+              dplyr::select("date", "only_year", "only_month","station", "CO", "O_3", "PM10", "NO_2", "SO_2")
 
 madrid_final1 <- as.data.frame(lapply(selected_features, unlist))
 madrid_final1$only_year <- as.factor(madrid_final1$only_year)
 madrid_final1$only_month <- as.factor(madrid_final1$only_month)
 madrid_final1$station <- as.factor(madrid_final1$station)
 
-gg_miss_var(select(madrid_final1, 4:8), show_pct = T) #missing values just for the 5 variables that we use
+gg_miss_var(dplyr::select(madrid_final1, 4:8), show_pct = T) #missing values just for the 5 variables that we use
 
 # Missing values:
 madrid_final1$CO[is.na(madrid_final1$CO)] <- round(mean(madrid_final1$CO, na.rm = TRUE))

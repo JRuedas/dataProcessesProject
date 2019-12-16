@@ -87,4 +87,8 @@ plot_pollutant<-function(pol,title,colour){
   grid.arrange(plot1,plot2,nrow=2)
 }
 
+plot_pollutant(CO,"Carbon monoxide","darkgreen")
 plot_pollutant(O_3,"Ozone","magenta3")
+plot_pollutant(PM10,"Particulate Matter","goldenrod3")
+plot_pollutant(NO_2,"Nitrogen Dioxide","brown")
+plot_pollutant(SO_2,"Sulphur Dioxide","lightslateblue")

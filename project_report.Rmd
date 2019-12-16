@@ -186,7 +186,18 @@ To start the analysis, the distribution of the variables in our dataset in terms
 
 The plot below is useful to visualize the center measures of the five selected variables:
 
-
+```{r boxplots , fig.width=8, fig.height=6, echo=FALSE}
+library(reshape2)
+library(gridExtra)
+library(ggplot2)
+melt_madrid_final_1 <- melt(madrid_final1,id.vars='station', measure.vars=c('O_3','PM10','NO_2','SO_2'))
+box_plot <- ggplot(melt_madrid_final_1,aes(x=variable, y=value, color=variable)) +
+  geom_boxplot()+ coord_flip()+
+  scale_colour_manual(values=c("magenta3","goldenrod3","brown","lightslateblue"))+
+  theme(legend.position="none")+scale_y_continuous(breaks = seq(0, 700, by = 50))+
+  labs(title="Distribution of pollutants",x='Pollutants',y='ug/m3')
+box_plot
+```
 
 As we can see, there are many outliers or unexpected values for all of the five variables.
 

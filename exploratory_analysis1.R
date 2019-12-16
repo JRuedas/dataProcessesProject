@@ -21,15 +21,15 @@ library(mice) #treatment of missing values
 library(missForest) #for prodNA
 library(reshape2)
 # Load CSVs
-madrid_2010 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2010.csv")
-madrid_2011 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2011.csv")
-madrid_2012 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2012.csv")
-madrid_2013 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2013.csv")
-madrid_2014 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2014.csv")
-madrid_2015 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2015.csv")
-madrid_2016 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2016.csv")
-madrid_2017 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2017.csv")
-madrid_2018 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2018.csv")
+madrid_2010 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2010.csv")
+madrid_2011 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2011.csv")
+madrid_2012 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2012.csv")
+madrid_2013 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2013.csv")
+madrid_2014 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2014.csv")
+madrid_2015 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2015.csv")
+madrid_2016 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2016.csv")
+madrid_2017 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2017.csv")
+madrid_2018 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2018.csv")
 
 station <- read.csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/stations.csv")
 
@@ -37,6 +37,8 @@ station <- read.csv("/home/laura/MUII/Primero/data_processes/project/dataProcess
 madrid_list <- list(madrid_2010, madrid_2011, madrid_2012, madrid_2013,
                     madrid_2014, madrid_2015, madrid_2016, madrid_2017, madrid_2018)
 madrid_18 <- as.data.frame(rbindlist(madrid_list, fill = T))
+
+madrid_18$only_day <-unlist(lapply(madrid_18$date, day))
 
 remove(madrid_2010)
 remove(madrid_2011)
@@ -57,35 +59,29 @@ madrid_final$only_year <-lapply(madrid_final$date, year)
 madrid_final$date<-as.POSIXct(madrid_final$date,format = "%Y-%m-%d %H:%M:%S", tz='CET')
 
 gg_miss_var(madrid_final, show_pct = T) #overall missing values
-selected_features <- dplyr::select(madrid_final, "date", "only_year", "only_month","station", "CO", "O_3", "PM10", "NO_2", "SO_2")
+selected_features <- madrid_final %>%  
+  dplyr::select("date", "only_year", "only_month","station", "CO", "O_3", "PM10", "NO_2", "SO_2")
 
-madrid_final1 <- as.data.frame(lapply(dplyr::selected_features, unlist))
-madrid_final1$only_year <- as.factor(madrid_final1$only_year)
-madrid_final1$only_month <- as.factor(madrid_final1$only_month)
-madrid_final1$station <- as.factor(madrid_final1$station)
+madrid_final_exp <- as.data.frame(lapply(selected_features, unlist))
+madrid_final_exp$only_year <- as.factor(madrid_final_exp$only_year)
+madrid_final_exp$only_month <- as.factor(madrid_final_exp$only_month)
+madrid_final_exp$station <- as.factor(madrid_final_exp$station)
 
-gg_miss_var(select(madrid_final1, 4:8), show_pct = T) #missing values just for the 5 variables that we use
-
-# Missing values:
-madrid_final1$CO[is.na(madrid_final1$CO)] <- round(mean(madrid_final1$CO, na.rm = TRUE))
-madrid_final1$O_3[is.na(madrid_final1$O_3)] <- round(mean(madrid_final1$O_3, na.rm = TRUE))
-madrid_final1$PM10[is.na(madrid_final1$PM10)] <- round(mean(madrid_final1$PM10, na.rm = TRUE))
-madrid_final1$NO_2[is.na(madrid_final1$NO_2)] <- round(mean(madrid_final1$NO_2, na.rm = TRUE))
-madrid_final1$SO_2[is.na(madrid_final1$SO_2)] <- round(mean(madrid_final1$SO_2, na.rm = TRUE))
+gg_miss_var(dplyr::select(madrid_final_exp, 4:8), show_pct = T) #missing values just for the 5 variables that we use
 
 #EXPLORATORY DATA ANALYSIS
 
 # 1. Center and distribution measures (boxplots and histograms)
-melt_madrid_final_1 <- melt(madrid_final1,id.vars='station', measure.vars=c('O_3','PM10','NO_2','SO_2'))
+melt_madrid_final_1 <- melt(madrid_final_exp,id.vars='station', measure.vars=c('O_3','PM10','NO_2','SO_2', 'CO'))
 box_plot <- ggplot(melt_madrid_final_1,aes(x=variable, y=value, color=variable)) +
   geom_boxplot()+ coord_flip()+
-  scale_colour_manual(values=c("magenta3","goldenrod3","brown","lightslateblue"))+
+  scale_colour_manual(values=c("magenta3","goldenrod3","brown","lightslateblue", "green"))+
   theme(legend.position="none")+scale_y_continuous(breaks = seq(0, 700, by = 50))+
   labs(title="Distribution of pollutants",x='Pollutants',y='ug/m3')
 histograms <-ggplot(melt_madrid_final_1,aes(x = value,fill=variable)) + 
   facet_wrap(~variable, nrow = 1) + 
   geom_histogram(binwidth=20)+
-  scale_fill_manual(values=c("magenta3","goldenrod3","brown","lightslateblue"))+
+  scale_fill_manual(values=c("magenta3","goldenrod3","brown","lightslateblue", "green"))+
   theme(legend.position="none")+
   labs(x='ug/m3',y='Pollutants')
 
@@ -94,9 +90,9 @@ grid.arrange(box_plot,histograms,nrow=2)
 # 2. Linear relationships:
 
 #Covariance and Correlation matrix, omitting date and station columns
-madrid_final1_features = dplyr::select(madrid_final1, 5:9)
-s <- cov(madrid_final1_features)
-r <- cor(madrid_final1_features)
+madrid_final_exp_features = dplyr::select(madrid_final_exp, 5:9)
+s <- cov(madrid_final_exp_features)
+r <- cor(madrid_final_exp_features)
 
 corrplot.mixed(r, lower="number", upper="ellipse")
 
@@ -109,7 +105,7 @@ det(r)
 plot_scale_monthly <- function(pol,title,colour) {
   pol <- enquo(pol)
   
-  daily_max<-madrid_final1%>%
+  daily_max<-madrid_final_exp%>%
     mutate(date_ymd=as.Date(date,format="%Y-%m-%d"))%>%
     group_by(date_ymd)%>%
     summarise(max_emission=max(!!pol,na.rm=TRUE))

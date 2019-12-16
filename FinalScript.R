@@ -1,3 +1,25 @@
+library(ggplot2)
+library(dplyr)
+library(moments)
+library(gridExtra)
+library(tseries)
+library(ppcor)
+library(corrgram)
+library(car)
+library(corrplot)
+library(mvoutlier)
+library(ppcor)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+library(data.table)
+library(GGally)
+library(ggpubr)
+library(naniar)
+library(mice) #treatment of missing values
+library(missForest) #for prodNA
+library(reshape2)
 # Load CSVs
 madrid_2010 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2010.csv")
 madrid_2011 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2011.csv")
@@ -32,10 +54,21 @@ remove(madrid_list)
 madrid_final <- madrid_18[with(madrid_18, order(date)),]
 madrid_final$only_month <-lapply(madrid_final$date, month)
 madrid_final$only_year <-lapply(madrid_final$date, year)
+madrid_final$date<-as.POSIXct(madrid_final$date,format = "%Y-%m-%d %H:%M:%S", tz='CET')
 
-selected_features <- madrid_final %>% 
-                      select("CO", "O_3", "PM10", "NO_2", "SO_2")
+gg_miss_var(madrid_final, show_pct = T) #overall missing values
+selected_features <- select(madrid_final, "date", "only_year", "only_month","station", "CO", "O_3", "PM10", "NO_2", "SO_2")
 
-selected_na <- as.data.frame(selected_features)
+madrid_final1 <- as.data.frame(lapply(selected_features, unlist))
+madrid_final1$only_year <- as.factor(madrid_final1$only_year)
+madrid_final1$only_month <- as.factor(madrid_final1$only_month)
+madrid_final1$station <- as.factor(madrid_final1$station)
 
-gg_miss_var(selected_features, show_pct = T)
+gg_miss_var(select(madrid_final1, 4:8), show_pct = T) #missing values just for the 5 variables that we use
+
+# Missing values:
+madrid_final1$CO[is.na(madrid_final1$CO)] <- round(mean(madrid_final1$CO, na.rm = TRUE))
+madrid_final1$O_3[is.na(madrid_final1$O_3)] <- round(mean(madrid_final1$O_3, na.rm = TRUE))
+madrid_final1$PM10[is.na(madrid_final1$PM10)] <- round(mean(madrid_final1$PM10, na.rm = TRUE))
+madrid_final1$NO_2[is.na(madrid_final1$NO_2)] <- round(mean(madrid_final1$NO_2, na.rm = TRUE))
+madrid_final1$SO_2[is.na(madrid_final1$SO_2)] <- round(mean(madrid_final1$SO_2, na.rm = TRUE))

@@ -1,0 +1,213 @@
+---
+title: "Data Processes Project"
+author: Alejandro Basco Plaza, Miriam Zaragoza Pastor, Jonatan Ruedas Mora, Raúl Cruz
+  Benita and Laura Sánchez de Rojas Huerta
+date: "20/12/2019"
+output: pdf_document
+toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Abstract
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Introduction and related work
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Exploratory data analysis
+
+### Dataset description
+
+Before exposing the results of the exploratory data analysis carried the data, important information and background about the dataset is introduced below:
+
+The dataset used for this work was obtained from [Kaggle's website](https://www.kaggle.com/ "Kaggle's website"). In this page, we can find a lot of information and datasets about the air quality in Madrid.
+
+The data in this data set has been collected from the original files provided by [Madrid Open Data.](https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=9e42c176313eb410VgnVCM1000000b205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default) Decide soluciones organization processed them and uploaded to the [Kaggle's website](https://www.kaggle.com/decide-soluciones/air-quality-madrid).
+
+Originally, Madrid Open Data get the data from 24 automatic stations around Madrid. Those stations, which are set around all the districts of the city, record information about pollution in the area. The data was generated from those stations whose pollution sensors measure air quality in Madrid city.
+
+Regarding the observations, all csv files include twelve month data, except the last one that only has data until  May. According to this, we have the followings rows:
+
+| CSV | Observations |
+| --- | ------------ |
+| Stations.csv | 24 rows |
+| Madrid2001.csv | 217872 rows |
+| Madrid2002.csv | 217296 rows |
+| Madrid2003.csv | 243984 rows |
+| Madrid2004.csv | 245496 rows |
+| Madrid2005.csv | 237000 rows |
+| Madrid2006.csv | 230568 rows |
+| Madrid2007.csv | 225120 rows |
+| Madrid2008.csv | 226392 rows |
+| Madrid2009.csv | 215688 rows |
+| Madrid2010.csv | 209448 rows |
+| Madrid2011.csv | 209928 rows |
+| Madrid2012.csv | 210720 rows |
+| Madrid2013.csv | 209880 rows |
+| Madrid2014.csv | 210024 rows |
+| Madrid2015.csv | 210096 rows |
+| Madrid2016.csv | 209496 rows |
+| Madrid2017.csv | 210120 rows |
+| Madrid2018.csv | 69096 rows |
+
+We can also differentiate two domains whose columns represent different data:
+
+On the one hand, we have Stations.csv with six columns, which contains information about the stations previously mentioned, in which the data about the pollution levels of the air is collected. On the other hand, we have Madrid20xx.csv, which contain the data about Madrid's air pollution itself. Some of these csv files have 14 columns, others 16 and others 17. We have the following columns in the csv files:
+
+| CSV | Features |
+| --- | -------- |
+| Stations.csv | 6 columns |
+| Madrid2001.csv | 16 columns |
+| Madrid2002.csv | 16 columns |
+| Madrid2003.csv | 16 columns |
+| Madrid2004.csv | 17 columns |
+| Madrid2005.csv | 17 columns |
+| Madrid2006.csv | 17 columns |
+| Madrid2007.csv | 17 columns |
+| Madrid2008.csv | 17 columns |
+| Madrid2009.csv | 17 columns |
+| Madrid2010.csv | 17 columns |
+| Madrid2011.csv | 14 columns |
+| Madrid2012.csv | 14 columns |
+| Madrid2013.csv | 14 columns |
+| Madrid2014.csv | 14 columns |
+| Madrid2015.csv | 14 columns |
+| Madrid2016.csv | 14 columns |
+| Madrid2017.csv | 16 columns |
+| Madrid2018.csv | 16 columns |
+
+### Data wrangling
+In order to work with the previously described data, some steps were performed in order to make the data more manageable:
+
+* All the yearly datasets were unified in a single one, adding an additional feature to the existing date column that all of the datasets present: the year. Thus, after this transformation, a single dataset contained all the information about Madrid's air pollution in the last 17 years, instead of 17 different datasets (one per year).
+
+
+* In the resulting dataset, there were several missing values: as it has been shown in the table above, some datasets have a different number of columns, so when the previous step was performed and the datasets were unified in a single one, the number of missing values of the resulting dataset was very high. In order to solve this, the rows containing missing values have been removed from the dataset.
+
+### Descriptive statistics analysis
+To start the analysis, we are going to analyse the distribution of the variables in our dataset in terms of center, dispersion, skewness and kurtosis descriptive measures.
+
+At first, to observe the center measures of each one of the five variables chosen, we have generated five boxplots:
+
+```{r, boxplots}
+library(ggplot2)
+library(dplyr)
+library(moments)
+library(gridExtra)
+library(tseries)
+library(ppcor)
+library(corrgram)
+library(car)
+library(corrplot)
+library(mvoutlier)
+library(ppcor)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+library(data.table)
+library(GGally)
+library(ggpubr)
+library(naniar)
+library(mice) #treatment of missing values
+library(missForest) #for prodNA
+library(reshape2)
+# Load CSVs
+madrid_2010 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2010.csv")
+madrid_2011 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2011.csv")
+madrid_2012 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2012.csv")
+madrid_2013 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2013.csv")
+madrid_2014 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2014.csv")
+madrid_2015 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2015.csv")
+madrid_2016 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2016.csv")
+madrid_2017 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2017.csv")
+madrid_2018 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2018.csv")
+
+station <- read.csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/stations.csv")
+
+# Group CSVs
+madrid_list <- list(madrid_2010, madrid_2011, madrid_2012, madrid_2013,
+                    madrid_2014, madrid_2015, madrid_2016, madrid_2017, madrid_2018)
+madrid_18 <- as.data.frame(rbindlist(madrid_list, fill = T))
+
+remove(madrid_2010)
+remove(madrid_2011)
+remove(madrid_2012)
+remove(madrid_2013)
+remove(madrid_2014)
+remove(madrid_2015)
+remove(madrid_2016)
+remove(madrid_2017)
+remove(madrid_2018)
+remove(madrid_list)
+# remove(madrid_18)
+
+# Data Wrangling
+madrid_final <- madrid_18[with(madrid_18, order(date)),]
+madrid_final$only_month <-lapply(madrid_final$date, month)
+madrid_final$only_year <-lapply(madrid_final$date, year)
+madrid_final$date<-as.POSIXct(madrid_final$date,format = "%Y-%m-%d %H:%M:%S", tz='CET')
+
+gg_miss_var(madrid_final, show_pct = T) #overall missing values
+selected_features <- select(madrid_final, "date", "only_year", "only_month","station", "CO", "O_3", "PM10", "NO_2", "SO_2")
+
+madrid_final1 <- as.data.frame(lapply(selected_features, unlist))
+madrid_final1$only_year <- as.factor(madrid_final1$only_year)
+madrid_final1$only_month <- as.factor(madrid_final1$only_month)
+madrid_final1$station <- as.factor(madrid_final1$station)
+
+gg_miss_var(select(madrid_final1, 4:8), show_pct = T) #missing values just for the 5 variables that we use
+
+# Missing values:
+madrid_final1$CO[is.na(madrid_final1$CO)] <- round(mean(madrid_final1$CO, na.rm = TRUE))
+madrid_final1$O_3[is.na(madrid_final1$O_3)] <- round(mean(madrid_final1$O_3, na.rm = TRUE))
+madrid_final1$PM10[is.na(madrid_final1$PM10)] <- round(mean(madrid_final1$PM10, na.rm = TRUE))
+madrid_final1$NO_2[is.na(madrid_final1$NO_2)] <- round(mean(madrid_final1$NO_2, na.rm = TRUE))
+madrid_final1$SO_2[is.na(madrid_final1$SO_2)] <- round(mean(madrid_final1$SO_2, na.rm = TRUE))
+
+#EXPLORATORY DATA ANALYSIS
+
+# 1. Center measures
+melt_madrid_final_1 <- melt(madrid_final1,id.vars='station', measure.vars=c('O_3','PM10','NO_2','SO_2'))
+box_plot <- ggplot(melt_madrid_final_1,aes(x=variable, y=value, color=variable)) +
+  geom_boxplot()+ coord_flip()+
+  scale_colour_manual(values=c("magenta3","goldenrod3","brown","lightslateblue"))+
+  theme(legend.position="none")+scale_y_continuous(breaks = seq(0, 700, by = 50))+
+  labs(title="Distribution of pollutants",x='Pollutants',y='ug/m3')
+histograms <-ggplot(melt_madrid_final_1,aes(x = value,fill=variable)) + 
+  facet_wrap(~variable, nrow = 1) + 
+  geom_histogram(binwidth=20)+
+  scale_fill_manual(values=c("magenta3","goldenrod3","brown","lightslateblue"))+
+  theme(legend.position="none")+
+  labs(x='ug/m3',y='Pollutants')
+
+grid.arrange(box_plot,histograms,nrow=2)
+```
+### PCA analysis
+
+## Strength of relationships
+
+
+## Prediction
+
+
+## Results
+
+
+## Discussion and future work

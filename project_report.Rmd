@@ -197,7 +197,19 @@ From the plot above we can see some curious information:
 
 ## Strength of relationships
 
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/exploratory_analysis/TimeSeries/TimeSeriesOfOzonePollutant.png")
+```
 
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/TimeSeries/DecompositionOfOzoneTimeSeries.png")
+```
 ## Prediction
 
 

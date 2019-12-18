@@ -15,6 +15,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction and related work
 
+Nowadays, pollution levels in Madrid is a popular topic in the [news](https://elpais.com/elpais/2019/11/29/inenglish/1575050927_871123.html). This has worried some of the group members who are thinking about moving to Madrid because they live in the outskirts. That is we want to know which area of Madrid is the most suitable for us to buy an apartment.
+
+We have found some related works that works with the same data:
+
+[Madrid Air Quality Exhaustive Tutorial on Stationarity, Smoothing, and Seasonality](https://www.kaggle.com/nholloway/stationarity-smoothing-and-seasonality). This projects is an introduction to time series while using Madrid's pollution datasets.
+
+[Explore air quality in Madrid](https://www.kaggle.com/dgildas/explore-air-quality-in-madrid). It wants to explore these datasets because of the measures taken by the authorities against the use of cars in the center of Madrid.
+
+[Madrid's pollution weekly mean values](https://www.kaggle.com/fjortag/interactive-plot-showing-weekly-mean-values). You can see an interactive chart about the levels of pollution depending on the year that you want to see.
+
+[Airquality analysis](https://www.kaggle.com/qgh1223/airquality-analysis). It is a project where it is plotted information about the most important pollutants of the datasets.
+
+[Madrid's Air Quality with ARIMA Forecasting](https://www.kaggle.com/gloriousc/madrid-s-air-quality-with-arima-forecasting). Worried about the short term and long term effects on health, the creator of this project want to analyze the air quality and predict it in for the next two years.
+
 ## Exploratory data analysis
 
 ### Dataset description
@@ -112,7 +126,7 @@ knitr::include_graphics("reportImages/exploratory_analysis/pctg_missing_values.p
 ```
 
 
-Thus, in order to deal with missing values, the **mean of each one of the variables for each year, month and station is computed**, so that all the missing values for each one of the pollutants in that same year, month and station are imputed with the corresponding mean. We have developed a separate script to **regenerate all the csv files following this treatment to erase missing values**, and then employed these treated csvs to perform the rest of the analysis. The ultimate goal of this approach is **to reduce the time it takes to execute this script**: it would be very time consuming to execute it every time we need the data.
+Thus, in order to deal with missing values, the **mean of each one of the variables for each year, month and station is computed**, so that all the missing values for each one of the pollutants in that same year, month and station are imputed with the corresponding mean. In case that one station has missing values all the month, they are replaced with the **mean of the column in that same year and month from all the stations**. We have developed a separate script to **regenerate all the csv files following this treatment to erase missing values**, and then employed these treated csvs to perform the rest of the analysis. The ultimate goal of this approach is **to reduce the time it takes to execute this script**: it would be very time consuming to execute it every time we need the data.
 
 ### Descriptive statistics analysis
 

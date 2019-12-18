@@ -55,9 +55,9 @@ We can also differentiate two domains whose columns represent different data:
 
 On the one hand, as it was mentioned above, we have the Stations.csv with six columns, which contain information about the stations:
 
-* id: unique identifier for each station.
-* address: location of the station in Madrid city.
-* Three additional columns that stand for the exact location coordinates of the station.
+* **id**: unique identifier for each station.
+* **address**: location of the station in Madrid city.
+* **Three additional columns** that stand for the exact location coordinates of the station.
 
 On the other hand, we have the data sets named Madrid20xx.csv, which contain the observations about Madrid's air pollution itself. Some of these csv files have 14 columns, others 16 and others 17. These columns include information about the level of presence of each pollutant in Madrid's air, the station that measured the information, and the date (year, month, day, hour, minute and second) in which this information was obtained by the station.
 
@@ -120,8 +120,6 @@ After wrangling our data as it was necessary, we are ready to take a first look 
 
 To start exploring our data, the distribution of the variables in our dataset in terms of **center, dispersion and distribution descriptive measures**, is analysed below.
 
-After that, the **linear relationships** of the five variables are analysed, to determine the relations among them, if any.
-
 We will end this section providing the reader some **insights on the temporal evolution of our data**, what historical patterns can be extracted and how they may relate to other real world phenomena. 
 
 #### Center, dispersion and distribution measures
@@ -148,9 +146,57 @@ knitr::include_graphics("reportImages/exploratory_analysis/histograms.png")
 
 In the plot above, we can also observe a phenomenon that leads us to the conclussion that, depending on what we want to do with the data in upcoming sections, it may be a good approach to normalize it: variables SO2 and CO always take values that are very close to 0, while the other variables can reach much higher values.
 
-#### Linear relationships analysis
+### Data insights
 
-As our intention is to make predictions using our data, it is convenient to analyse the linear relationships among the features, if any. In order to do so, the correlation matrix is represented in the plot below:
+It is interesting to answer some questions related to our data, in order to acquire some previous knowledge on how pollution behaves in Madrid's air, taking into account factors like year month and hour in the day, before procceeding to further steps in the project.
+
+It is important to highlight that the questions that we intend to answer in this section are merely exploratory. We are still not trying to predict any phenomenon, but it may be interesting to **find out some patterns in the temporal evolution of the five pollutants**.
+
+At first, it is interesting for us to observe the **yearly evolution of the maximum value that each pollutant reaches each month**. In order to do so, first the maximum value for each day on each month and year is computed. Then, the average value for each month per year is obtained. Note that the values have been normalized to be on the same scale. The resulting plot, looks as follows:
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/exploratory_analysis/yearly_evolution_of_max.png")
+```
+
+From the plot above we can see some curious information:
+
+* the clear patterns followed by **O3** and **SO2** are the opposite: while the levels of O3 reach their yearly maximum during the months in the middle of the year (summer months) and decrease towards the end of the year, we observe the opposite trend for SO2, that reaches its yearly minimum values towards the middle of the year, and its maximum towards the end.
+
+* **PM10** levels have reached a more regular trend since year 2014. The trend of this variable is very irregular. This also happens with variable **NO2**, which has an irregular trend aswell, but this variable seems to reach the yearly maximum value towards the end of the year, even though the maximum value can change a lot from one year to another.
+
+* The temporal evolution of variable **CO** is more irregular than the one for SO2 and O3, but a pattern is also appreciated: the yearly maximum value is reached mostly towards the end of the current year and the beginning of the next one, in the coolest months.
+
+To support these findings, we provide the following set of plots:
+
+``` {r out.width="80%", out.height="80%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/exploratory_analysis/O3_daily_monthly.png")
+knitr::include_graphics("reportImages/exploratory_analysis/PM10_daily_monthly.png")
+knitr::include_graphics("reportImages/exploratory_analysis/NO2_daily_monthly.png")
+knitr::include_graphics("reportImages/exploratory_analysis/SO2_daily_monthly.png")
+knitr::include_graphics("reportImages/exploratory_analysis/CO_daily_monthly.png")
+```
+
+For **O3** and **SO2**, the previously observed patterns are maintained: the month of the year in which O3 reaches its maximum level is july, while the month of the year in which it reaches its lowest level is january. SO2 behaves the opposite way: winter months are more prone to have higher levels of this gas than summer months. However, we can find a common trend for both gases: the minimum level of SO2 and O3 that is present in Madrid's air has increased since 2015, which leads to the conclussion that the general level of presence of these two gases seems to be growing.
+
+For **PMH10**, we can see that the daily minimum level of the gas seems to be slightly decreasing, which is good news. The overall trend of the temporal evolution of the level of presence of this pollutant is still irregular, reaching its maximum values in 2011, 2012 and 2013. Since 2014, the stiffness of irregularities has decreased, but the overall trend of PMH10 seems to be stabilizing in a higher level of presence of this gas, unitl january 2018, when it dramatically decreases.
+
+**NO2** follows a similar trend to the one previously described for PMH10: in the last years, the overall level of presence of the gas seems to be increasing, to dramatically decrease in january 2018, and the overall pattern that it follows is more irregular than the one followed by PMH10.
+
+It also seems that the level of **CO** in Madrid's air is slightly increasing since 2015: the trend followed by minimum values is stabilizing towards a higher value than it was before this year. CO follows a more regular pattern than PMH10 and NO2, decreasing every july and increasing towards january, but there seems to be additional factors during the rest of the year that generate some fluctuations in the pattern.
+
+The patterns followed by the most regular pollutants (O3, SO2 and CO) can be intuitively explained by some real world events:
+
+**O3** is rarely emitted by anthropogenic sources: it is, instead, a direct consecuence of some quimical reactions that take place [in the presence of sunlight](http://www.apis.ac.uk/overview/pollutants/overview_O3.htm), which explains why O3 levels are so high during the summer months. On the other hand, **SO2** emissions are a direct consecuence of human action: [burning fossil fuels](https://sciencing.com/major-sources-sulfur-dioxide-10011402.html). One fact that could explain the high level of SO2 during winter may be that during these months, there is a higher industrial activity than in summer. **CO** emissions are caused by [high motor-vehicle emissions](https://www.nap.edu/read/10378/chapter/3#25), so the high level of CO during winter could be explained as a consecuence of higher traffic levels in an area like Madrid during winter than during summer. Probably, if we analysed the levels of CO in a turistic place, the level of this gas would be higher in summer than in winter.
+
+## Strength of relationships
+
+As our intention is to make predictions using our data, it is convenient to analyse the linear relationships among the five pollutants, if any. In order to do so, the correlation matrix is represented in the plot below:
 
 ``` {r out.width="80%", out.height="80%" , fig.align = "center", echo = FALSE}
 library(knitr)    # For knitting document and include_graphics function
@@ -175,31 +221,6 @@ The value obtained is close to 0, but not small enough to conclude the existence
 This result is coherent, as the variables recorded in our data seem to be the outcome of some other predictors which are not included in our dataset. For instance, a high number of manufacturing plants in the city, or high traffic levels, could be a direct cause of a high level of some of the gases that our five variables stand for, like SO2.
 
 Due to these findings, in upcoming steps of this project we will not be trying to predict any of the five variables as an outcome of the others.
-
-### Data insights
-
-It is interesting to answer some questions related to our data, in order to acquire some previous knowledge on how pollution behaves in Madrid's air, taking into account factors like year month and hour in the day, before procceeding to further steps in the project.
-
-It is important to highlight that the questions that we intend to answer in this section are merely exploratory. We are still not trying to predict any phenomenon, but it may be interesting to find out some patterns in the temporal evolution of the five pollutants.
-
-At first, it is interesting for us to observe the *yearly evolution of the maximum value that each pollutant reaches each month*. In order to do so, first the maximum value for each day on each month and year is computed. Then, the average value for each month per year is obtained. Note that the values have been normalized to be on the same scale. The resulting plot, looks as follows:
-
-``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
-library(knitr)    # For knitting document and include_graphics function
-library(ggplot2)  # For plotting
-library(png) 
-knitr::include_graphics("reportImages/exploratory_analysis/yearly_evolution_of_max.png")
-```
-
-From the plot above we can see some curious information:
-
-* the clear patterns followed by **O3** and **SO2** are the opposite: while the levels of O3 reach their yearly maximum during the months in the middle of the year (summer months) and decrease towards the end of the year, we observe the opposite trend for SO2, that reaches its yearly minimum values towards the middle of the year, and its maximum towards the end.
-
-* **PM10** levels have reached a more regular trend since year 2014. The trend of this variable is very irregular. This also happens with variable **NO2**, which has an irregular trend aswell, but this variable seems to reach the yearly maximum value towards the end of the year, even though the maximum value can change a lot from one year to another.
-
-* The temporal evolution of variable **CO** is more irregular than the one for SO2 and O3, but a pattern is also appreciated: the yearly maximum value is reached mostly towards the end of the current year and the beginning of the next one, in the coolest months.
-
-## Strength of relationships
 
 ``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
 library(knitr)    # For knitting document and include_graphics function

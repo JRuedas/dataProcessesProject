@@ -19,15 +19,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Dataset description
 
-Before exposing the results of the exploratory data analysis carried the data, important information and background about the dataset is introduced below:
+Before exposing the findings during the exploratory data analysis, important information and background about the dataset is introduced below:
 
 The dataset used for this work was obtained from [Kaggle's website](https://www.kaggle.com/ "Kaggle's website"). In this page, we can find a lot of information and datasets about the air quality in Madrid.
 
+Our data is composed by **18 data sets** that contain observations of the level of presence of **various gases** in Madrid's air, **which can be noxious for human health**, during the last 18 years (from 2001 to 2018). This information is recorded by 24 different stations, each one located in a different area of the city, that measure the level of presence of each pollutant through several sensors. There is data about the presence of each gas during each hour of the day, every day of every month. 
+
 The data in this data set has been collected from the original files provided by [Madrid Open Data.](https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=9e42c176313eb410VgnVCM1000000b205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default) Decide soluciones organization processed them and uploaded to the [Kaggle's website](https://www.kaggle.com/decide-soluciones/air-quality-madrid).
 
-Originally, Madrid Open Data get the data from 24 automatic stations around Madrid. Those stations, which are set around all the districts of the city, record information about pollution in the area. The data was generated from those stations whose pollution sensors measure air quality in Madrid city.
-
-Regarding the observations, all csv files include twelve month data, except the last one that only has data until  May. According to this, we have the followings rows:
+Regarding the **observations**, all csv files include data for every month, except the last one (2018) that only has records until  May. According to this, we have the following number of rows for each data set (note that the stations.csv stores information about the 24 stations through which the information about the pollutants was measured):
 
 | CSV | Observations |
 | --- | ------------ |
@@ -53,7 +53,15 @@ Regarding the observations, all csv files include twelve month data, except the 
 
 We can also differentiate two domains whose columns represent different data:
 
-On the one hand, we have Stations.csv with six columns, which contains information about the stations previously mentioned, in which the data about the pollution levels of the air is collected. On the other hand, we have Madrid20xx.csv, which contain the data about Madrid's air pollution itself. Some of these csv files have 14 columns, others 16 and others 17. We have the following columns in the csv files:
+On the one hand, as it was mentioned above, we have the Stations.csv with six columns, which contain information about the stations:
+
+* id: unique identifier for each station.
+* address: location of the station in Madrid city.
+* Three additional columns that stand for the exact location coordinates of the station.
+
+On the other hand, we have the data sets named Madrid20xx.csv, which contain the observations about Madrid's air pollution itself. Some of these csv files have 14 columns, others 16 and others 17. These columns include information about the level of presence of each pollutant in Madrid's air, the station that measured the information, and the date (year, month, day, hour, minute and second) in which this information was obtained by the station.
+
+We have the following number columns in the csv files:
 
 | CSV | Features |
 | --- | -------- |
@@ -82,25 +90,19 @@ Before getting to work with the previously described data, some steps were perfo
 
 #### Selected Features
 
-In order to perform both the exploratory data analysis and the prediction methods, we will focus on the five gases that harm humans the most when they are present, and that relate the most to pollution:
+As it was mentioned before, the data sets that record information about pollution in Madrid's air provide data about several gases that can be harmful for human health. To carry on the upcoming analysis, we are concerned about the most harmful ones: [CO](https://www.epa.gov/indoor-air-quality-iaq/carbon-monoxides-impact-indoor-air-quality), [O3](https://www.epa.gov/ground-level-ozone-pollution/health-effects-ozone-pollution), [SO2](https://www.epa.gov/so2-pollution/sulfur-dioxide-basics#what%20is%20so2), [PM10](https://www.epa.gov/pm-pollution/health-and-environmental-effects-particulate-matter-pm) and [NO2](https://www.epa.gov/no2-pollution/basic-information-about-no2).
 
-1. CO
+As all these links recall, all of these 5 pollutants can cause different types of pain in humans, such as chest pain, and can hurt vital organs, like lungs. Some of them are responsible for environmental phenomenons like acid rain, that can harm sensitive ecosystems very easily, or haze (also known as reduced visibility). Some of them also contribute to contaminate lakes and other big water resources, changing their acidity.
 
-2. O3
-
-3. SO2
-
-4. PMH10
-
-5. NO2
+After these insights, it is clear that when choosing a new place to live, it is very convenient to take a look at what environmental factors can harm our health, and these five pollutants are very important ones. Therefore in our upcoming analysis we will be focusing specifically on the behavior of these pollutants.
 
 #### Datasets unification
 
-In order to work with the data, all the yearly datasets were unified in a single one, adding one additional feature to the existing date column that all of the datasets present: the year. Thus, after this transformation, a single dataset contained all the information about Madrid's air pollution in the last 17 years, instead of 17 different datasets (one per year). Two additional columns were added: the _only_month_  and  _only_year_ columns, wihic stand for the month and the year in which the observation was recorded, respectively.
+In order to work with the data, all the yearly datasets were unified in a single one, adding one additional feature to the existing date column that all of the datasets present: the year. Thus, after this transformation, a single dataset contained all the information about Madrid's air pollution in the last 17 years, instead of 17 different datasets (one per year). Two additional columns were added: the _only_month_  and  _only_year_ columns, wich stand for the month and the year in which the observation was recorded, respectively.
 
 #### Missing values treatment
 
-As we can observe in the plot below, there is a high amount of missing values in the variables that we concern about:
+As we can observe in the plot below, there is a **high amount of missing values** in the variables that we concern about:
 
 ``` {r out.width="80%", out.height="80%" , fig.align = "center", echo = FALSE}
 library(knitr)    # For knitting document and include_graphics function
@@ -110,15 +112,17 @@ knitr::include_graphics("reportImages/exploratory_analysis/pctg_missing_values.p
 ```
 
 
-Thus, in order to deal with missing values, the mean of each one of the variables for each year, month and station is computed, so that all the missing values for each one of the columns in that same year, month and station are imputed with the corresponding mean.
+Thus, in order to deal with missing values, the **mean of each one of the variables for each year, month and station is computed**, so that all the missing values for each one of the pollutants in that same year, month and station are imputed with the corresponding mean. We have developed a separate script to **regenerate all the csv files following this treatment to erase missing values**, and then employed these treated csvs to perform the rest of the analysis. The ultimate goal of this approach is **to reduce the time it takes to execute this script**: it would be very time consuming to execute it every time we need the data.
 
 ### Descriptive statistics analysis
 
-After the data wrangling step, we are ready to perform the exploratory data analysis.
+After wrangling our data as it was necessary, we are ready to take a first look at our variables.
 
-To start the analysis, the distribution of the variables in our dataset in terms of center, dispersion and distribution descriptive measures, is analysed below.
+To start exploring our data, the distribution of the variables in our dataset in terms of **center, dispersion and distribution descriptive measures**, is analysed below.
 
-After that, the linear relationships of the five variables are analysed, to determine the relations among them, if any.
+After that, the **linear relationships** of the five variables are analysed, to determine the relations among them, if any.
+
+We will end this section providing the reader some **insights on the temporal evolution of our data**, what historical patterns can be extracted and how they may relate to other real world phenomena. 
 
 #### Center, dispersion and distribution measures
 
@@ -201,7 +205,7 @@ From the plot above we can see some curious information:
 library(knitr)    # For knitting document and include_graphics function
 library(ggplot2)  # For plotting
 library(png) 
-knitr::include_graphics("reportImages/exploratory_analysis/TimeSeries/TimeSeriesOfOzonePollutant.png")
+knitr::include_graphics("reportImages/TimeSeries/TimeSeriesOfOzonePollutant.png")
 ```
 
 ``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}

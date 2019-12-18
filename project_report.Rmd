@@ -236,21 +236,76 @@ This result is coherent, as the variables recorded in our data seem to be the ou
 
 Due to these findings, in upcoming steps of this project we will not be trying to predict any of the five variables as an outcome of the others.
 
-``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
-library(knitr)    # For knitting document and include_graphics function
-library(ggplot2)  # For plotting
-library(png) 
-knitr::include_graphics("reportImages/TimeSeries/TimeSeriesOfOzonePollutant.png")
-```
-
-``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
-library(knitr)    # For knitting document and include_graphics function
-library(ggplot2)  # For plotting
-library(png) 
-knitr::include_graphics("reportImages/TimeSeries/DecompositionOfOzoneTimeSeries.png")
-```
 ## Prediction
+After reading the data, the next thing that is done is the creation of the serial object and its sequential representation. In the figure shown below we can see that there is a presence of seasonality, that is, a periodic behavior of the series is observed caused by factors that are repeated over time. In our case it can be seen that at the beginning of the year the pollution is not very high but as the months go by it increases with its highest peak in summer and then goes back down. This may be due to the fact that temperatures affect pollution or that public transport is used more. Therefore, in the future it would be a possibility of field of study to see what factors affect the different stations to have more or less pollution. On the other hand we could study the seasonality with the graph but in this case it is not clear, in this graph, no upward or downward trend since since we can see how from 2012 to 2014 it increases and yet from 2014 to 2016 it decreases although in smaller quantity than the previous increase, therefore it could not be said with this graph with certainty what its tendency is. Therefore the conclusion we draw with this graph is that we have seasonality.
 
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/TimeSeries/EvolutionOfTheOzone.png")
+```
+
+After doing this, we decided to perform the ETS predictive model, used for time series. The following figure shows the time series we are studying with its decomposition of the components of the ETS model, trend and seasonality, which were what we tried to study in the previous case. In these graphs we can see more clearly that it has a very clear seasonality since as we see in the graph it grows and decreases depending on the passage of the seasons or the months, and has its highest peak in the middle of the year, which would correspond to the summer month. On the other hand we can also see the trend more clearly, just as we could deduce before, it does not have a linear trend, that is, we have a non-linear trend. This means that we have a changing trend since we do not only have pollution growth or decrease in it. However, if we look closely at the graph, pollution is usually mostly ascending since it has large growths from 2012 to 2014 and from 2014 to 2016, compared to small descending peaks that we find throughout these years, having the largest of all between 2015 and 2016 but being insignificant against rising peaks.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/TimeSeries/ParametersOzone.png")
+```
+
+When making the ETS model we obtain the following:
+
+ETS(M,N,M)   
+Call:  ets(y = train_ts)     
+Smoothing parameters:     
+alpha = 0.2495      
+gamma = 1e-04     
+Initial states:     
+l = 95.8235      
+s = 0.6168 0.7004 0.8541 1.1307 1.3166 1.433            
+    1.3101 1.1716 1.0697 0.9337 0.8102 0.6532    
+    sigma:  0.0766       
+    AIC     AICc      BIC  
+    609.0884 617.6598 643.2384
+    
+These data correspond to the ETS model that has been estimated for our data. Once this data is obtained, we make the plots to see everything graphically.
+The following graph shows the prediction you make based on the data we have provided. As you can see, it makes a pretty good prediction since, as you can see in the graph, the red line that represents our predictions has a shape that resembles that of the real data represented in green.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/TimeSeries/TrainigVsTesting.png")
+```
+
+After making the prediction we have obtained the histogram of the errors produced during the prediction. The graph shows that the residues have a constant variation over time and their distribution tends to be normal, focusing on 0.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/TimeSeries/HistogramOfForecasterrors.png")
+```
+
+As we can see in the graph, a single significant lag is obtained, which would be lag 0, since, as observed in the graph, the rest of the values are within the range of the bands. That is why although the fas (auto correlation function) does not have 0 quickly since as we can see there are several lags before it takes that value it can be said that it falls within the bands which is considered sufficient. Therefore the graph shows a regular and seasonal lags correlation.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/TimeSeries/ACF.png")
+```
+
+Finally, the plot of the waste was done to complete the validation of the model. To verify that the model is satisfactory, the residuals should look random. In our case, we could consider it valid since it does not follow any pattern but it has random values and grows and decreases randomly regardless of the season and the values obtained in previous years.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/TimeSeries/Residual.png")
+```
 
 ## Results
 

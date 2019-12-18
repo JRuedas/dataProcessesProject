@@ -126,7 +126,7 @@ knitr::include_graphics("reportImages/exploratory_analysis/pctg_missing_values.p
 ```
 
 
-Thus, in order to deal with missing values, the **mean of each one of the variables for each year, month and station is computed**, so that all the missing values for each one of the pollutants in that same year, month and station are imputed with the corresponding mean. In case that one station has missing values all the month, they are replaced with the **mean of the columns in that same year and month from all the stations**. We have developed a separate script to **regenerate all the csv files following this treatment to erase missing values**, and then employed these treated csvs to perform the rest of the analysis. The ultimate goal of this approach is **to reduce the time it takes to execute this script**: it would be very time consuming to execute it every time we need the data.
+Thus, in order to deal with missing values, the **mean of each one of the variables for each year, month and station is computed**, so that all the missing values for each one of the pollutants in that same year, month and station are imputed with the corresponding mean. In case that one station has missing values all the month, they are replaced with the **mean of the column in that same year and month from all the stations**. We have developed a separate script to **regenerate all the csv files following this treatment to erase missing values**, and then employed these treated csvs to perform the rest of the analysis. The ultimate goal of this approach is **to reduce the time it takes to execute this script**: it would be very time consuming to execute it every time we need the data.
 
 ### Descriptive statistics analysis
 

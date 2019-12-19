@@ -33,7 +33,7 @@ We have found some related works that works with the same data:
 
 This report starts with an **exploratory data analysis**, where at first, before performing any analysis, our data is described. Then we explain which features are the most relevant ones for the issues that we concern about, and at last we explain the wrangling carried out to deal with our data. After this previous step, we go through several visuals that show how our data behaves in terms of center, dispersion and distribution measures. The exploratory analysis is ended with some previous insights about the temporal evolution of our data, before starting with further analysis.
 
-This step is followed by a **predictive analysis first step**, in which we have used **temporal series** to predict the behavior of one of the features in our data, using the ETS predictive model.
+This step is followed by a **predictive analysis first step**, in which we have used **temporal series** to predict the behavior of one of the features in our data in the year 2018, using the ETS predictive model.
 
 After this first step, the second method used to ellaborate a prediction with our data uses a **machine learning approach**, in which we try to predict the outcome of one of our features based how it behaved previously, using the date and the station where the data was obtained as predictors.
 
@@ -260,6 +260,8 @@ Due to these findings, in upcoming steps of this project we will not be trying t
 
 ## Prediction
 
+### Time series
+
 After reading the data, the next thing that is done is the creation of the serial object and its sequential representation. In the figure shown below we can see that there is a presence of seasonality, that is, a periodic behavior of the series is observed caused by factors that are repeated over time. In our case it can be seen that at the beginning of the year the pollution is not very high but as the months go by it increases with its highest peak in summer and then goes back down. This may be due to the fact that temperatures affect pollution or that public transport is used more. Therefore, in the future it would be a possibility of field of study to see what factors affect the different stations to have more or less pollution. On the other hand we could study the seasonality with the graph but in this case it is not clear, in this graph, no upward or downward trend since since we can see how from 2012 to 2014 it increases and yet from 2014 to 2016 it decreases although in smaller quantity than the previous increase, therefore it could not be said with this graph with certainty what its tendency is. Therefore the conclusion we draw with this graph is that we have seasonality.
 
 ``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
@@ -330,4 +332,16 @@ library(png)
 knitr::include_graphics("reportImages/TimeSeries/Residual.png")
 ```
 
+### Machine learning approach
+
 ## Conclussions and future work
+
+After the complete analysis of our data, we are able to draw some conclussions:
+
+The exploratory data analysis gives us some accurate hints on how the five most harmful pollutants behave through time, and what patterns they follow. From the temporal evolution plots provided, we were able to see that O3, SO2 and CO are the pollutants that follow the most regular behavior: O3 increases in summer, probably due to sunlight and the quimical reactions that it promotes, while CO and SO2 increase notably during the rest of the year, most likely due to higher levels of traffic and industrial activity. The other two pollutants, PMH10 and NO2 are more irregular and its difficult to find a pattern. Regarding the most regular gases, we also saw that the overall levels of O3 and SO2 seem to be growing, as the minimum values for both gases seem to be higher than they used to be. If a person with a heart disease were to move to the city center, it would be wise to take this results into consideration
+
+In the next step of the research, after analysing the linear relationships of the variables and seeing that its very possible that none of them can work as a predictor to the others, a time series prediction model has been developed to check if we are able to accurately predict the behavior of __ in the year 2018: the residuals plot shows that the model fits well and can predict the behavior correctly. For the issue that we concern about, which is moving to Madrid's city center, this time series itself is not useful, as we are predicting events that have already happened. However, this model could be used as a base to develop a more complex time series that could predict the behavior of the pollutants in upcoming years: that would be helpful to finally determine whether moving to Madrid's city center is a good idea or not.
+
+--Machine learning conclussions paragraph
+
+As an overall lesson, in future research on this domain using this data, it is convenient that additional variables that can work as predictors are used in the analysis. For example, the level of traffic in the city could be a good predictor to determine the growth of SO2 and CO, while the level of sunlight could be another predictor for O3. This would allow future contributors that are interested on this domain to perform a prediction based on factors other than time evolution. To be more precise in what would be exactly the best place to move in Madrid, it would also be a good idea to include some information about the districts in future analysis, which we didn't include to avoid increasing the complexity of our work, that was going to be mainly focused on temporal evolution since the beginning, due to our data.

@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction and related work
 
-Nowadays, pollution levels in Madrid is a popular topic in the news (click [here]((https://elpais.com/elpais/2019/11/29/inenglish/1575050927_871123.html)) for more information on the high pollution levels that Madrid's air is facing). This has worried some of the group members who are thinking about moving to Madrid because they live in the outskirts. That is why we want to know which area of Madrid is the most suitable for us to buy an apartment.
+Nowadays, the pollution levels in Madrid is a popular topic that generates a heated debate in the news (click [here]((https://elpais.com/elpais/2019/11/29/inenglish/1575050927_871123.html)) for more information about the high pollution levels that Madrid's air is facing off against). This has worried some of the group members who are thinking about moving to Madrid from the outskirts. That situation lead us to think about which area of Madrid is the most suitable for us to buy an apartment.
 
 We have found some related works that works with the same data:
 
@@ -26,19 +26,19 @@ We have found some related works that works with the same data:
 
 [Airquality analysis](https://www.kaggle.com/qgh1223/airquality-analysis). It is a project where it is plotted information about the most important pollutants of the datasets.
 
-[Madrid's Air Quality with ARIMA Forecasting](https://www.kaggle.com/gloriousc/madrid-s-air-quality-with-arima-forecasting). Worried about the short term and long term effects on health, the creator of this project want to analyze the air quality and predict it in for the next two years.
+[Madrid's Air Quality with ARIMA Forecasting](https://www.kaggle.com/gloriousc/madrid-s-air-quality-with-arima-forecasting). Worried about the short term and long term effects on health, the creator of this project wants to analyze the air quality and predict it in for the next two years.
 
 ## Document structure and R scripts organization
 
-This report starts with an **exploratory data analysis**, where at first, before performing any analysis, our data is described. Then we explain which features are the most relevant ones for the issues that we concern about, and at last we explain the wrangling carried out to deal with our data. After this previous step, we go through several visuals that show how our data behaves in terms of center, dispersion and distribution measures. The exploratory analysis is ended with some previous insights about the temporal evolution of our data, before starting with further analysis.
+To begin with, an **exploratory data analysis** is made, where our data is described before performing any further analysis. Then we explain which features are the most relevant ones for the issues that we concern about, and at last we explain the wrangling carried out to deal with our data. After this previous step, we go through several visuals that show how our data behaves in terms of center, dispersion and distribution measures. The exploratory analysis is ended with some previous insights about the temporal evolution of our data, before starting with further analysis.
 
-This step is followed by a **predictive analysis first step**, in which we have used **temporal series** to predict the behavior of one of the features in our data in the year 2018, using the ETS predictive model.
+Secondly, a **predictive analysis first step** is performed, in which we have used **time series** to predict the behavior of one of the features in our data in the year 2018, using the ETS (Error Trend Seasonal) predictive model.
 
-After this first method, the second prediction method uses two  **machine learning approaches**, KNN and linear regression, to generate and compare two prediction models for one of our data features, and chooses the best one according with the RMSE obtained. The process to generate the two models is described, and a prediction for year 2019 is ellaborated (year for which we don't have any available data), drawing some conclussions to assess our question of interest.
+Apart from that, we have conducted a prediction method that uses two  **machine learning approaches**, KNN (K nearest neighbors) and linear regression, to generate and compare two prediction models for one of our data features, and chooses the best one according with the RMSE obtained. The process to generate the two models is described, and a prediction for year 2019 is ellaborated (year for which we don't have any available data), drawing some conclussions to assess our question of interest.
 
-To end this work, we present some **conclussions and future work** that could be carried out to follow this research.
+Finally, we present some **conclussions and future work** that could be carried out to follow this research.
 
-We provide the **scripts** used to perform the various analysis and to generate the plots. They are described below:
+We provide the following **scripts** that have been used to perform the different analysis and to generate the plots:
 
 * **DataProcessesDataAdaptation.R**: script in which the missing value treatment is performed.
 

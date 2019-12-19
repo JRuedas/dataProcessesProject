@@ -39,6 +39,18 @@ After this first step, the second method used to ellaborate a prediction with ou
 
 To end this work, we present some **conclussions and future work** that could be carried out to follow this research.
 
+We provide the **scripts** used to perform the various analysis and to generate the plots. They are described below:
+
+* **DataProcessesDataAdaptation.R**: script in which the missing value treatment is performed.
+
+* **Final_Script.R**: script in which the data wrangling step of joining the multiple csvs in a single one is performed.
+
+* **exploratory_analysis.R**: script used to perform the exploratory data analysis
+
+* **TimeSeries.R**: script in which the time series analysis is performed.
+
+* **ML.R**: script in which the machine learning approach is performed.
+
 ## Exploratory data analysis
 
 ### Dataset description
@@ -247,8 +259,7 @@ This result is coherent, as the variables recorded in our data seem to be the ou
 Due to these findings, in upcoming steps of this project we will not be trying to predict any of the five variables as an outcome of the others.
 
 ## Prediction
-<<<<<<< HEAD
-=======
+
 After reading the data, the next thing that is done is the creation of the serial object and its sequential representation. In the figure shown below we can see that there is a presence of seasonality, that is, a periodic behavior of the series is observed caused by factors that are repeated over time. In our case it can be seen that at the beginning of the year the pollution is not very high but as the months go by it increases with its highest peak in summer and then goes back down. This may be due to the fact that temperatures affect pollution or that public transport is used more. Therefore, in the future it would be a possibility of field of study to see what factors affect the different stations to have more or less pollution. On the other hand we could study the seasonality with the graph but in this case it is not clear, in this graph, no upward or downward trend since since we can see how from 2012 to 2014 it increases and yet from 2014 to 2016 it decreases although in smaller quantity than the previous increase, therefore it could not be said with this graph with certainty what its tendency is. Therefore the conclusion we draw with this graph is that we have seasonality.
 
 ``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
@@ -266,7 +277,6 @@ library(ggplot2)  # For plotting
 library(png) 
 knitr::include_graphics("reportImages/TimeSeries/ParametersOzone.png")
 ```
->>>>>>> dca91b13937b161a689ce686b1ff17896528bf16
 
 When making the ETS model we obtain the following:
 
@@ -320,7 +330,4 @@ library(png)
 knitr::include_graphics("reportImages/TimeSeries/Residual.png")
 ```
 
-## Results
-
-
-## Discussion and future work
+## Conclussions and future work

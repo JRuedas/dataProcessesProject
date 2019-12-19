@@ -1,7 +1,7 @@
 ---
 title: "Madrid's air pollution analysis"
 author: Alejandro Basco Plaza, Miriam Zaragoza Pastor, Jonatan Ruedas Mora, Raúl Cruz
-  Benita and Laura Sánchez de Rojas Huerta
+  Benita and Laura Sánchez de Rojas Huerta.
 date: "20/12/2019"
 output: html_document
 ---

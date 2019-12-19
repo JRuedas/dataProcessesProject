@@ -1,5 +1,5 @@
 ---
-title: "Data Processes Project"
+title: "Madrid's air pollution analysis"
 author: Alejandro Basco Plaza, Miriam Zaragoza Pastor, Jonatan Ruedas Mora, Raúl Cruz
   Benita and Laura Sánchez de Rojas Huerta
 date: "20/12/2019"
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction and related work
 
-Nowadays, pollution levels in Madrid is a popular topic in the [news](https://elpais.com/elpais/2019/11/29/inenglish/1575050927_871123.html). This has worried some of the group members who are thinking about moving to Madrid because they live in the outskirts. That is we want to know which area of Madrid is the most suitable for us to buy an apartment.
+Nowadays, pollution levels in Madrid is a popular topic in the news (click [here]((https://elpais.com/elpais/2019/11/29/inenglish/1575050927_871123.html)) for more information on the high pollution levels that Madrid's air is facing). This has worried some of the group members who are thinking about moving to Madrid because they live in the outskirts. That is why we want to know which area of Madrid is the most suitable for us to buy an apartment.
 
 We have found some related works that works with the same data:
 
@@ -28,6 +28,16 @@ We have found some related works that works with the same data:
 [Airquality analysis](https://www.kaggle.com/qgh1223/airquality-analysis). It is a project where it is plotted information about the most important pollutants of the datasets.
 
 [Madrid's Air Quality with ARIMA Forecasting](https://www.kaggle.com/gloriousc/madrid-s-air-quality-with-arima-forecasting). Worried about the short term and long term effects on health, the creator of this project want to analyze the air quality and predict it in for the next two years.
+
+## Document structure and R scripts organization
+
+This report starts with an **exploratory data analysis**, where at first, before performing any analysis, our data is described. Then we explain which features are the most relevant ones for the issues that we concern about, and at last we explain the wrangling carried out to deal with our data. After this previous step, we go through several visuals that show how our data behaves in terms of center, dispersion and distribution measures. The exploratory analysis is ended with some previous insights about the temporal evolution of our data, before starting with further analysis.
+
+This step is followed by a **predictive analysis first step**, in which we have used **temporal series** to predict the behavior of one of the features in our data, using the ETS predictive model.
+
+After this first step, the second method used to ellaborate a prediction with our data uses a **machine learning approach**, in which we try to predict the outcome of one of our features based how it behaved previously, using the date and the station where the data was obtained as predictors.
+
+To end this work, we present some **conclussions and future work** that could be carried out to follow this research.
 
 ## Exploratory data analysis
 
@@ -106,7 +116,7 @@ Before getting to work with the previously described data, some steps were perfo
 
 As it was mentioned before, the data sets that record information about pollution in Madrid's air provide data about several gases that can be harmful for human health. To carry on the upcoming analysis, we are concerned about the most harmful ones: [CO](https://www.epa.gov/indoor-air-quality-iaq/carbon-monoxides-impact-indoor-air-quality), [O3](https://www.epa.gov/ground-level-ozone-pollution/health-effects-ozone-pollution), [SO2](https://www.epa.gov/so2-pollution/sulfur-dioxide-basics#what%20is%20so2), [PM10](https://www.epa.gov/pm-pollution/health-and-environmental-effects-particulate-matter-pm) and [NO2](https://www.epa.gov/no2-pollution/basic-information-about-no2).
 
-As all these links recall, all of these 5 pollutants can cause different types of pain in humans, such as chest pain, and can hurt vital organs, like lungs. Some of them are responsible for environmental phenomenons like acid rain, that can harm sensitive ecosystems very easily, or haze (also known as reduced visibility). Some of them also contribute to contaminate lakes and other big water resources, changing their acidity.
+As all the previous links recall (the reader can click on the names of the pollutants mentioned above for more information on the environmental and health effects they cause), all of these 5 pollutants can cause different types of pain in humans, such as chest pain, and can hurt vital organs, like lungs. Some of them are responsible for environmental phenomenons like acid rain, that can harm sensitive ecosystems very easily, or haze (also known as reduced visibility). Some of them also contribute to contaminate lakes and other big water resources, changing their acidity.
 
 After these insights, it is clear that when choosing a new place to live, it is very convenient to take a look at what environmental factors can harm our health, and these five pollutants are very important ones. Therefore in our upcoming analysis we will be focusing specifically on the behavior of these pollutants.
 
@@ -206,7 +216,7 @@ It also seems that the level of **CO** in Madrid's air is slightly increasing si
 
 The patterns followed by the most regular pollutants (O3, SO2 and CO) can be intuitively explained by some real world events:
 
-**O3** is rarely emitted by anthropogenic sources: it is, instead, a direct consecuence of some quimical reactions that take place [in the presence of sunlight](http://www.apis.ac.uk/overview/pollutants/overview_O3.htm), which explains why O3 levels are so high during the summer months. On the other hand, **SO2** emissions are a direct consecuence of human action: [burning fossil fuels](https://sciencing.com/major-sources-sulfur-dioxide-10011402.html). One fact that could explain the high level of SO2 during winter may be that during these months, there is a higher industrial activity than in summer. **CO** emissions are caused by [high motor-vehicle emissions](https://www.nap.edu/read/10378/chapter/3#25), so the high level of CO during winter could be explained as a consecuence of higher traffic levels in an area like Madrid during winter than during summer. Probably, if we analysed the levels of CO in a turistic place, the level of this gas would be higher in summer than in winter.
+**O3** is rarely emitted by anthropogenic sources: it is, instead, a direct consecuence of some quimical reactions that take place [in the presence of sunlight]:http://www.apis.ac.uk/overview/pollutants/overview_O3.htm, which explains why O3 levels are so high during the summer months. On the other hand, **SO2** emissions are a direct consecuence of human action: [burning fossil fuels](https://sciencing.com/major-sources-sulfur-dioxide-10011402.html). One fact that could explain the high level of SO2 during winter may be that during these months, there is a higher industrial activity than in summer. **CO** emissions are caused by [high motor-vehicle emissions](https://www.nap.edu/read/10378/chapter/3#25), so the high level of CO during winter could be explained as a consecuence of higher traffic levels in an area like Madrid during winter than during summer. Probably, if we analysed the levels of CO in a turistic place, the level of this gas would be higher in summer than in winter.
 
 ## Strength of relationships
 
@@ -236,19 +246,6 @@ This result is coherent, as the variables recorded in our data seem to be the ou
 
 Due to these findings, in upcoming steps of this project we will not be trying to predict any of the five variables as an outcome of the others.
 
-``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
-library(knitr)    # For knitting document and include_graphics function
-library(ggplot2)  # For plotting
-library(png) 
-knitr::include_graphics("reportImages/TimeSeries/TimeSeriesOfOzonePollutant.png")
-```
-
-``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
-library(knitr)    # For knitting document and include_graphics function
-library(ggplot2)  # For plotting
-library(png) 
-knitr::include_graphics("reportImages/TimeSeries/DecompositionOfOzoneTimeSeries.png")
-```
 ## Prediction
 
 

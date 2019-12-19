@@ -3,7 +3,7 @@ title: "Data Processes Project"
 author: Alejandro Basco Plaza, Miriam Zaragoza Pastor, Jonatan Ruedas Mora, Raúl Cruz
   Benita and Laura Sánchez de Rojas Huerta
 date: "20/12/2019"
-output: pdf_document
+output: html_document
 toc: true
 ---
 

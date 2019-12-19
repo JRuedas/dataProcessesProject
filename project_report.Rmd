@@ -333,6 +333,219 @@ knitr::include_graphics("reportImages/TimeSeries/Residual.png")
 
 ### Machine learning approach
 
+In the preprocess work, we have obtained 9 files with the polution data of all the stationes in Madrid. Those files, are from 2010 to 2018, and their features are:
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/1.png")
+```
+
+We have to add another column "only_day" with the numeric valuer of the day of the month.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/2.png")
+```
+
+To analyze polution data in Madrid, we will focus on C0 particles and we select those features that we'll need: CO, only_day, only_month, only_year, station
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/3.png")
+```
+
+Our predictive model needs C0 levels from the year before for each day. We must join data for each year and add "CO_year_before" columns with C0 levels from the year before.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/4.png")
+```
+
+Now, we can merge all the years and obtain just one dataset. We'll use this new one to generate our predictive model. We have no data from 2019, so as an exercise we'll predict them from the data of years before.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/5.png")
+```
+
+We don't need the column "on_year_year_before" so we delete it.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/6.png")
+```
+
+This are the dimensions and features of Madrid_list dataset, that we'll use to generate our model.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/7.png")
+```
+
+We have a set of 36412969 registers. The next step is to divide them in a training and a data set. We should use createDataPartition function, but this is a huge dataset and our personal computers can't deal with this data amount so we just use a set of 1.000.000 registers for training, and a set of 300.000 registers for testing. We get them sequencially, although we should get them random.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/8.png")
+```
+
+The predictive problem at hand is a supervised regression problem since we want to predict a continuous value and we have previous target data to be able to generate the model. In our case, the target will be C0, and the following features will be used to generate the model: only_day, only_month, only_year, station, C0_year_before. All are numerical values, except station which is a factor.
+
+Trying to get a consistant model and to be honest with the geneartion of it, we apply k-fold cross validation with two iterations.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/9.png")
+```
+
+In this moment, we are ready to generate the model, we'll use two suited algorithms for the problems in which we are involved:
+
+-Linear Regression
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/10.png")
+```
+
+-k-Nearest Neighbors
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/11.png")
+```
+
+After more than three hours training the knn model with 1,000,000 records and applying k fold cross-validation, on a computer with Intel Core i7-6700 3.41GHz processor, we decided to stop the process and reduce the size of the training data and test to generate the models again. In order to generate a model with the 36412969 records, we should use clusters provided by AWS, Google Cloud or Microsoft Azure. Given the capacity of our personal equipment, we simply generate the models with 100,000 records.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/12.png")
+```
+
+lm_mod and knn_mod are the generated models, to which before putting into production, we will evaluate them to assess the accuracy of our predictions.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/13.png")
+```
+
+We obtain the square root of the average difference between the observed known outcome values and the predicted values.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/14.png")
+```
+
+With this, we can observe that on the test data, the knn_mod model obtains a better RMSE and therefore with this data it is a better model and will be the selected one.
+
+To apply the model and predict the 2019 data, we have to have the input data ready. The data to predict have CO_year_before those corresponding to 2018.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/15.png")
+```
+
+Madrid_19_18 has 1658304 records, again a figure too high for the resources we have.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/16.png")
+```
+
+For each season, we generate the average of CO_year_before of each day.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/17.png")
+```
+
+We apply the model and obtain the CO values in Madrid for the year 2019 in each season.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/18.png")
+```
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/19.png")
+```
+
+We calculate the average CO2 for each station.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/20.png")
+```
+
+With this data, we can already make a bar chart with the average CO2 levels for each of the measuring stations in the city of Madrid and know which district is the most polluting and the least.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/21.png")
+```
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/Graph.png")
+```
+
+With these data, and given our future home purchase, we discarded the station 28079056 in the Plaza de Fernández Ladreda in the Carabanchel district because it is the most polluted and we will have preference for the districts of Moncloa, Retiro where its stations 28079024 and 28079008 respectively where they have the lowest expected levels of C02.
+
+We have checked the location of the stations, thanks to their description in the station.csv file and their location with the Google Maps tool. Delving into the goodness of the data obtained, it should be noted that the station 28079024 of Moncloa is located in the Casa de Campo, the great green lung of the city of Madrid. On the other hand, the 28079008 station of the Retiro district, is close to the Retiro park, another important green lung of the city.
+
+In the following image, we can see the location of the stations with lower levels of C02 planned in 2019, around which we would look for apartments to move.
+
+``` {r out.width="100%", out.height="100%" , fig.align = "center", echo = FALSE}
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png) 
+knitr::include_graphics("reportImages/MachineLearning/Map.png")
+```
+
 ## Conclussions and future work
 
 After the complete analysis of our data, we are able to draw some conclussions:

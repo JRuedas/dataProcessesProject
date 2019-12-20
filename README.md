@@ -2,6 +2,8 @@
 
 This repository is created to hold the code for the project of Data Processes subject
 
+**Note: Download this project to your home directory or the scripts won't be able to find de csv files**
+
 ## Authors
 
 * Alejandro Basco Plaza

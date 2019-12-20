@@ -4,8 +4,8 @@ author: Alejandro Basco Plaza, Miriam Zaragoza Pastor, Jonatan Ruedas Mora, Raú
   Benita and Laura Sánchez de Rojas Huerta.
 date: "20/12/2019"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -51,6 +51,8 @@ We provide the following **scripts** that have been used to perform the differen
 * **Time_Series.R**: script in which the time series analysis is performed.
 
 * **Machine_Learning.R**: script in which the machine learning approach is performed.
+
+**Note: The project must be under the home directory because the path of the scripts is relative to that directory**
 
 ## Exploratory data analysis
 

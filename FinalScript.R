@@ -21,6 +21,9 @@ library(mice) #treatment of missing values
 library(missForest) #for prodNA
 library(reshape2)
 library(scales)
+
+setwd("~/dataProcessesProject/")
+
 # Load CSVs
 madrid_2016 <-read_csv("dataWoNa/madrid_2016.csv")
 madrid_2017 <-read_csv("dataWoNa/madrid_2017.csv")

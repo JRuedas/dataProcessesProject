@@ -8,10 +8,7 @@ library(corrgram)
 library(car)
 library(corrplot)
 library(mvoutlier)
-library(ppcor)
 library(tidyverse)
-library(ggplot2)
-library(dplyr)
 library(lubridate)
 library(data.table)
 library(GGally)
@@ -20,18 +17,22 @@ library(naniar)
 library(mice) #treatment of missing values
 library(missForest) #for prodNA
 library(reshape2)
-# Load CSVs
-madrid_2010 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2010.csv")
-madrid_2011 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2011.csv")
-madrid_2012 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2012.csv")
-madrid_2013 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2013.csv")
-madrid_2014 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2014.csv")
-madrid_2015 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2015.csv")
-madrid_2016 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2016.csv")
-madrid_2017 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2017.csv")
-madrid_2018 <-read_csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/dataWoNa/madrid_2018.csv")
+library(scales)
 
-station <- read.csv("/home/laura/MUII/Primero/data_processes/project/dataProcessesProject/data/Madrid_pollution_level_dataset/stations.csv")
+# Load CSVs
+setwd("~/dataProcessesProject/")
+
+madrid_2010 <-read.csv("dataWoNa/madrid_2010.csv", sep = ",", header = T)
+madrid_2011 <-read.csv("dataWoNa/madrid_2011.csv", sep = ",", header = T)
+madrid_2012 <-read.csv("dataWoNa/madrid_2012.csv", sep = ",", header = T)
+madrid_2013 <-read.csv("dataWoNa/madrid_2013.csv", sep = ",", header = T)
+madrid_2014 <-read.csv("dataWoNa/madrid_2014.csv", sep = ",", header = T)
+madrid_2015 <-read.csv("dataWoNa/madrid_2015.csv", sep = ",", header = T)
+madrid_2016 <-read.csv("dataWoNa/madrid_2016.csv", sep = ",", header = T)
+madrid_2017 <-read.csv("dataWoNa/madrid_2017.csv", sep = ",", header = T)
+madrid_2018 <-read.csv("dataWoNa/madrid_2018.csv", sep = ",", header = T)
+
+station <- read.csv("data/Madrid_pollution_level_dataset/stations.csv")
 
 # Group CSVs
 madrid_list <- list(madrid_2010, madrid_2011, madrid_2012, madrid_2013,
@@ -125,3 +126,34 @@ p3<-plot_scale_monthly(NO_2,"NO_2","brown")
 p4<-plot_scale_monthly(SO_2,"SO_2","lightslateblue")
 p5 <- plot_scale_monthly(CO,"CO","green")
 grid.arrange(p1,p2,p3,p4,p5,nrow=5,top = "Yearly Evolution of the Maximum Value of Pollutants each Month")
+
+plot_average<-function(pol,title,colour){
+  pol<-enquo(pol)
+  date_df<-madrid_final%>%
+    mutate(date_ymd=as.Date(date,format="%Y-%m-%d"))%>%
+    group_by(date_ymd)%>%
+    summarise(max_emission=max(!!pol,na.rm=TRUE))
+  
+  plot1<-ggplot(data=date_df,aes(x=date_ymd,y=max_emission))+geom_line(color=colour)+
+    scale_x_date(breaks = seq(as.Date("2001-01-01"), as.Date("2018-01-01"), by="6 months"),labels = date_format("%b-%y"))+
+    xlab('Date')+ylab('ug/m3')+ggtitle(paste('Daily Maximum Emission of',title))+
+    theme(axis.text.x = element_text(angle = 45, hjust = 1),legend.position="none")
+  
+  month_df<-date_df%>%
+    mutate(y_m_d=paste(substr(date_ymd,1,nchar(date_ymd)+2),"-01"))%>%
+    group_by(y_m_d)%>%
+    summarise(avg_emission=mean(max_emission,na.rm=TRUE))
+  
+  
+  plot2<-ggplot(data=month_df,aes(x=as.Date(y_m_d, format = "%Y - %m - %d"),y=avg_emission))+geom_line(color=colour)+
+    scale_x_date(breaks = seq(as.Date("2001-01-01"), as.Date("2018-01-01"), by="6 months"), date_labels = "%b-%y")+
+    xlab('Date')+ylab('ug/m3')+ggtitle(paste('Monthly Average Emission of',title))+
+    theme(axis.text.x = element_text(angle = 45, hjust = 1),legend.position="none")
+  grid.arrange(plot1,plot2,nrow=2)
+}
+
+plot_average(CO,"Carbon monoxide","green")
+plot_average(O_3,"Ozone","magenta3")
+plot_average(PM10,"Particulate Matter","goldenrod3")
+plot_average(NO_2,"Nitrogen Dioxide","brown")
+plot_average(SO_2,"Sulphur Dioxide","lightslateblue")

@@ -3,6 +3,9 @@ library(ggplot2)
 library(dplyr)
 library(lubridate)
 library(data.table)
+
+setwd("~/dataProcessesProject/")
+
 # Load CSVs
 madrid_2010 <-read_csv("data/Madrid_pollution_level_dataset/csvs_per_year/madrid_2010.csv")
 

@@ -24,9 +24,7 @@ library(missForest) #for prodNA
 library(reshape2)
 library(scales)
 
-setwd("D:/Dropbox/Data/UPM/1.DP/Project/Project")
-
-
+setwd("~/dataProcessesProject/")
 
 madrid_2010 <-read.csv("dataWoNa/madrid_2010.csv")
 madrid_2011 <-read.csv("dataWoNa/madrid_2011.csv")

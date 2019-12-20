@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Abstract
 
-Throughout the last years people has become more and more concern about the advantages and drawbacks of living in a polluted city. In this report the evolution of the air quality of Madrid city is analyzed from two different perspectives. The first one is a time series that shows the evolution over the last years of the most important pollutants that are present in the city of Madrid and tries to forecast the evolution for the next year. The second one tries to predict how these values are going to evolve in the following year using machine learning techniques such as the K nearest neighbors. Thanks to theese predictions we will be able to discover which district will have the less polluted air of Madrid in order to answer the question and solve the problem of moving there there to live.
+Throughout the last years people has become more and more concern about the advantages and drawbacks of living in a polluted city. This report analyzes the evolution of the air quality of Madrid city from two different perspectives. The first one is a time series that shows the evolution of the ozone pollutant from 2012 to 2017 and tries to forecast the evolution of this pollutant. The second one is used to predicts how these values are going to evolve in the following year using machine learning techniques such as the K nearest neighbors. Thanks to theese predictions we will be able to discover which district of Madrid will have the less polluted air and as a consequence we will have the perfect candidate to answer the question and solve the problem of moving there there to live.
 
 ## Introduction and related work
 
